@@ -1,0 +1,105 @@
+{
+    "name": "tablou-de-bord-20231009.json",
+    "description": "Generat de Ionut Ojica la 2023-10-09 08:18:26",
+    "widgets": {
+        "13": {
+            "name": "Top segments",
+            "width": 25,
+            "height": 330,
+            "ordering": 0,
+            "type": "top.lists",
+            "params": [],
+            "template": null
+        },
+        "14": {
+            "name": "Contacte create \/ anonime",
+            "width": 25,
+            "height": 330,
+            "ordering": 1,
+            "type": "created.leads.in.time",
+            "params": {
+                "lists": "identifiedVsAnonymous",
+                "flag": "identifiedVsAnonymous"
+            },
+            "template": null
+        },
+        "15": {
+            "name": "Vizite Site",
+            "width": 25,
+            "height": 330,
+            "ordering": 2,
+            "type": "page.hits.in.time",
+            "params": {
+                "flag": "total_and_unique"
+            },
+            "template": null
+        },
+        "16": {
+            "name": "Device granularity",
+            "width": 25,
+            "height": 330,
+            "ordering": 3,
+            "type": "device.granularity",
+            "params": [],
+            "template": null
+        },
+        "17": {
+            "name": "Fi\u015fiere populare",
+            "width": 25,
+            "height": 330,
+            "ordering": 5,
+            "type": "popular.assets",
+            "params": [],
+            "template": null
+        },
+        "18": {
+            "name": "Downloads in time",
+            "width": 25,
+            "height": 330,
+            "ordering": 6,
+            "type": "asset.downloads.in.time",
+            "params": [],
+            "template": null
+        },
+        "19": {
+            "name": "Orele de deschidere a email-urilor",
+            "width": 50,
+            "height": 330,
+            "ordering": 7,
+            "type": "emails.best.hours",
+            "params": {
+                "timeFormat": "24-hour",
+                "companyId": "",
+                "campaignId": null,
+                "segmentId": null
+            },
+            "template": null
+        },
+        "20": {
+            "name": "Emailuri trimise, citite, e\u015fuate",
+            "width": 75,
+            "height": 445,
+            "ordering": 8,
+            "type": "report",
+            "params": {
+                "flag": "",
+                "companyId": "",
+                "campaignId": null,
+                "segmentId": null,
+                "graph": "4:mautic.email.graph.line.stats"
+            },
+            "template": null
+        },
+        "21": {
+            "name": "Submissions in time",
+            "width": 25,
+            "height": 445,
+            "ordering": 9,
+            "type": "report",
+            "params": {
+                "graph": "3:mautic.form.table.most.submitted"
+            },
+            "template": null
+        }
+    }
+}

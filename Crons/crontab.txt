@@ -1,0 +1,23 @@
+crontab -e
+
+41 0 * * * bash /usr/local/bin/reset-mautic-permissions.sh > /dev/null 2>&1
+42 0 * * * bash /usr/local/bin/reset-mautic-permissions2.sh > /dev/null 2>&1
+
+crontab -u www-data -e                                    
+
+1 1 * * * bash /var/mautic-crons/w-cron-iplookup-download.sh > /dev/null 2>&1
+10 1 * * * bash /var/mautic-crons/w-cron-backup.sh > /dev/null 2>&1
+20 1 * * * bash /var/mautic-crons/w-cron-duplicate.sh > /dev/null 2>&1
+25 1 * * * bash /var/mautic-crons/w-cron-database-optimization.sh > /dev/null 2>&1
+30 1 1 * * bash /var/mautic-crons/w-cron-maintenance-cleanup.sh > /dev/null 2>&1
+* * * * * bash /var/mautic-crons/w-cron-all.sh > /dev/null 2>&1
+21 * * * * bash /var/mautic-crons/send-email.sh > /dev/null 2>&1
+
+1 2 * * * bash /var/mautic2-crons/w-cron-iplookup-download.sh > /dev/null 2>&1
+10 2 * * * bash /var/mautic2-crons/w-cron-backup.sh > /dev/null 2>&1
+20 2 * * * bash /var/mautic2-crons/w-cron-duplicate.sh > /dev/null 2>&1
+25 2 * * * bash /var/mautic2-crons/w-cron-database-optimization.sh > /dev/null 2>&1
+30 2 2 * * bash /var/mautic2-crons/w-cron-maintenance-cleanup.sh > /dev/null 2>&1
+*/2 * * * * bash /var/mautic2-crons/w-cron-all.sh > /dev/null 2>&1
+22 * * * * bash /var/mautic2-crons/send-email.sh > /dev/null 2>&1
+
