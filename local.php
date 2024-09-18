@@ -6,11 +6,11 @@ $parameters = array(
 	'db_port' => '3306',
 	'db_name' => '###mysql_mautic_database###',
 	'db_user' => '###mysql_mauticuser_name###',
-	'db_password' => '###mysql_mauticuser_password###',
+	'db_password' => '###MYSQL_MAUTICUSER_PASSWORD###',
 	'db_backup_tables' => 0,
 	'db_backup_prefix' => 'bak_',
-	'mailer_from_name' => '###prenume_expeditor### ###familie_expeditor###',
-	'mailer_from_email' => '###email_expeditor###',
+	'mailer_from_name' => '###SENDER_FIRSTNAME### ###SENDER_LASTNAME###',
+	'mailer_from_email' => '###SENDER_EMAIL###',
 	'mailer_transport' => 'smtp',
 	'mailer_host' => null,
 	'mailer_port' => null,
@@ -23,16 +23,16 @@ $parameters = array(
 	'mailer_auth_mode' => null,
 	'mailer_spool_type' => 'file',
 	'mailer_spool_path' => '%kernel.root_dir%/../var/spool',
-	'secret_key' => '###mautic_secret_key###',
-	'site_url' => 'https://###subdomeniu_mautic###',
+	'secret_key' => '###MAUTIC_SECRET_KEY###',
+	'site_url' => 'https://###MAUTIC_SUBDOMAIN###',
 	'webroot' => null,
 	'404_page' => null,
-	'cache_path' => '###dosar_instalare_mautic###app/../var/cache',
-	'log_path' => '###dosar_instalare_mautic###app/../var/logs',
+	'cache_path' => '###MAUTIC_FOLDER###app/../var/cache',
+	'log_path' => '###MAUTIC_FOLDER###app/../var/logs',
 	'max_log_files' => 7,
 	'log_file_name' => 'mautic_prod.php',
 	'image_path' => 'media/images',
-	'tmp_path' => '###dosar_instalare_mautic###app/../var/tmp',
+	'tmp_path' => '###MAUTIC_FOLDER###app/../var/tmp',
 	'locale' => 'ro_RO',
 	'dev_hosts' => array(
 
@@ -43,11 +43,11 @@ $parameters = array(
 	'trusted_proxies' => array(
 
 	),
-	'rememberme_key' => '###mautic_rememberme_key###',
+	'rememberme_key' => '###MAUTIC_REMEMBERME_KEY###',
 	'rememberme_lifetime' => 31536000,
 	'rememberme_path' => '/',
 	'default_pagelimit' => 30,
-	'default_timezone' => '###fusul_orar###',
+	'default_timezone' => '###SENDER_TIMEZONE###',
 	'date_format_full' => 'j F Y H:i:s',
 	'date_format_short' => 'D, d M',
 	'date_format_dateonly' => 'j.m.Y',
@@ -468,7 +468,7 @@ $parameters = array(
 	'transliterate_page_title' => 0,
 	'cors_restrict_domains' => 1,
 	'cors_valid_domains' => array(
-		'0' => 'https://###domeniu_principal###'
+		'0' => 'https://###MAIN_DOMAIN###'
 	),
 	'max_entity_lock_time' => 0,
 	'default_daterange_filter' => '-1 month',
@@ -589,7 +589,7 @@ $parameters = array(
 	'api_rate_limiter_cache' => array(
 		'adapter' => 'cache.adapter.filesystem'
 	),
-	'upload_dir' => '###dosar_instalare_mautic###app/../media/files',
+	'upload_dir' => '###MAUTIC_FOLDER###app/../media/files',
 	'max_size' => '6',
 	'allowed_extensions' => array(
 		'0' => 'csv',
@@ -634,39 +634,39 @@ $parameters = array(
 	'webview_text' => '<a href="|URL|">Citeşte email-ul în browser</a>.',
 	'unsubscribe_message' => '<div style="position:fixed;top:0;left:0;height:100%%;width:100%%;border:0;box-sizing:border-box;background-color:#F5F5F9;font-family:\'Helvetica Neue\',Helvetica,Arial,sans-serif;font-size:14px;line-height:1.4;color:#333;"><div style="height:100%%;overflow:scroll;padding:0;">
 <div style="margin:40px auto;width:95%%;max-width:730px;">
-###prenume_expeditor### ###familie_expeditor###
+###SENDER_FIRSTNAME### ###SENDER_LASTNAME###
 <div style="box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);">
 <div style="background-color:#09292B;padding:60px 50px;color:white;border-radius:10px 10px 0px 0px;">
 <h1 style="font-size: 36px;font-weight:500;line-height:1.1;margin:0;">Ups-oh.</h1>
 </div>
 <div style="padding:50px;background-color:GhostWhite;">
 <h4 style="font-size: 18px;font-weight: 500;">La revedere?</h4>
-<p style="color: #868686;">Am început bine, dar cred că este timpul să citesc alte emailuri. Te voi aprecia mereu, ###prenume_expeditor###.</p>
+<p style="color: #868686;">Am început bine, dar cred că este timpul să citesc alte emailuri. Te voi aprecia mereu, ###SENDER_FIRSTNAME###.</p>
 <p>Am <strong>dezabonat</strong> adresa ta de email: <strong>|EMAIL|</strong> </p>
 <p>Nu vei mai primi email-uri de la mine.</p>
 <p>Dacă te-ai dezabonat din greşeală, te poţi abona din nou dând <a href="|URL|">clic aici: abonează-mă din nou</a>.</p>
 </div>
 <div style="padding:50px;background-color:#C7CED7;color:black;border-radius:0px 0px 10px 10px;">
-<p style="margin:0;">###prenume_expeditor### ###familie_expeditor### * https://###domeniu_principal### * ###email_expeditor###</p>
-<p><a href="https://###domeniu_principal###/politica-de-confidentialitate" target="_blank" style="color:#337ab7;text-decoration:none;">Politica de confidenţialitate</a></p>
+<p style="margin:0;">###SENDER_FIRSTNAME### ###SENDER_LASTNAME### * https://###MAIN_DOMAIN### * ###SENDER_EMAIL###</p>
+<p><a href="https://###MAIN_DOMAIN###/politica-de-confidentialitate" target="_blank" style="color:#337ab7;text-decoration:none;">Politica de confidenţialitate</a></p>
 </div>
 </div></div></div></div>',
 	'resubscribe_message' => '<div style="position:fixed;top:0;left:0;height:100%%;width:100%%;border:0;box-sizing:border-box;background-color:#F5F5F9;font-family:\'Helvetica Neue\',Helvetica,Arial,sans-serif;font-size:14px;line-height:1.4;color:#333;"><div style="height:100%%;overflow:scroll;padding:0;">
 <div style="margin:40px auto;width:95%%;max-width:730px;">
-###prenume_expeditor### ###familie_expeditor###
+###SENDER_FIRSTNAME### ###SENDER_LASTNAME###
 <div style="box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);">
 <div style="background-color:#09292B;padding:60px 50px;color:white;border-radius:10px 10px 0px 0px;">
 <h1 style="font-size: 36px;font-weight:500;line-height:1.1;margin:0;">Pam.Pam.</h1>
 </div>
 <div style="padding:50px;background-color:GhostWhite;">
 <h4 style="font-size: 18px;font-weight: 500;">Super!</h4>
-<p style="color: #868686;">Chiar îmi place ce citesc şi primesc multă valoare de la tine, ###prenume_expeditor###. Te apreciez mult.</p>
+<p style="color: #868686;">Chiar îmi place ce citesc şi primesc multă valoare de la tine, ###SENDER_FIRSTNAME###. Te apreciez mult.</p>
 <p>Am <strong>reabonat</strong> adresa ta de email: <strong>|EMAIL|</strong> </p>
 <p>Dacă te-ai reabonat din greşeală, te poţi dezabona din nou dând <a href="|URL|">clic aici: dezabonează-mă</a>.</p>
 </div>
 <div style="padding:50px;background-color:#C7CED7;color:black;border-radius:0px 0px 10px 10px;">
-<p style="margin:0;">###prenume_expeditor### ###familie_expeditor### * https://###domeniu_principal### * ###email_expeditor###</p>
-<p><a href="https://###domeniu_principal###/politica-de-confidentialitate" target="_blank" style="color:#337ab7;text-decoration:none;">Politica de confidenţialitate</a></p>
+<p style="margin:0;">###SENDER_FIRSTNAME### ###SENDER_LASTNAME### * https://###MAIN_DOMAIN### * ###SENDER_EMAIL###</p>
+<p><a href="https://###MAIN_DOMAIN###/politica-de-confidentialitate" target="_blank" style="color:#337ab7;text-decoration:none;">Politica de confidenţialitate</a></p>
 </div>
 </div></div></div></div>',
 	'monitored_email' => array(
@@ -724,7 +724,7 @@ $parameters = array(
 	'mailer_mailjet_sandbox_default_mail' => null,
 	'disable_trackable_urls' => 0,
 	'theme_email_default' => 'blank',
-	'form_upload_dir' => '###dosar_instalare_mautic###app/../media/files/form',
+	'form_upload_dir' => '###MAUTIC_FOLDER###app/../media/files/form',
 	'blacklisted_extensions' => array(
 		'0' => 'php',
 		'1' => 'sh'
@@ -773,7 +773,7 @@ $parameters = array(
 	'google_analytics_landingpage_enabled' => 0,
 	'google_analytics_anonymize_ip' => 0,
 	'do_not_track_404_anonymous' => 1,
-	'report_temp_dir' => '###dosar_instalare_mautic###app/../media/files/temp',
+	'report_temp_dir' => '###MAUTIC_FOLDER###app/../media/files/temp',
 	'report_export_batch_size' => 1000,
 	'report_export_max_filesize_in_bytes' => 5000000,
 	'csv_always_enclose' => 0,
@@ -784,7 +784,7 @@ $parameters = array(
 	'sms_frequency_number' => 0,
 	'sms_frequency_time' => 'DAY',
 	'sms_transport' => null,
-	'saml_idp_entity_id' => 'https://###subdomeniu_mautic###',
+	'saml_idp_entity_id' => 'https://###MAUTIC_SUBDOMAIN###',
 	'saml_idp_email_attribute' => 'EmailAddress',
 	'saml_idp_username_attribute' => null,
 	'saml_idp_firstname_attribute' => 'FirstName',
