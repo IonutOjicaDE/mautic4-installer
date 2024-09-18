@@ -164,12 +164,12 @@ while true; do
 
     response=$(curl smtp://$FROM_SERVER_PORT -u $FROM_USER:$FROM_PASS -v 2>&1)
     if [[ "$response" == *"Authentication failed"* ]]; then
-      show_info ❌ "Authentification to the server $SERVER:$PORT for the user $FROM_USER failed. Do you want to retry with another authentification data: username and password?"
+      show_info ❌ "Authentification to the server $FROM_SERVER_PORT for the user $FROM_USER failed. Do you want to retry with another authentification data: username and password?"
       answer_yes_else_stop
       nano "${PWD}${FILE_CONF}"
       continue
     fi
-    show_info ✅ "Successfully authentificated to server $SERVER:$PORT with user $FROM_USER."
+    show_info ✅ "Successfully authentificated to server $FROM_SERVER_PORT with user $FROM_USER."
 
 
 
