@@ -7,14 +7,14 @@
 ###############################################################################################
 
 
-#Run with: bash <(wget -qO- https://raw.githubusercontent.com/IonutOjicaDE/mautic-commands/main/mautic-install.sh)
+#Run with: bash <(wget -qO- https://raw.githubusercontent.com/IonutOjicaDE/mautic4-installer/main/mautic-install.sh)
 # ✅ ❌ ❓ ❗ ❎ ⛔ 🛈
 
 
 ###############################################################################################
 #####                                   GET CONFIG FILE                                   #####
 ###############################################################################################
-URL_TO_FILES='https://raw.githubusercontent.com/IonutOjicaDE/mautic-commands/main/'
+URL_TO_FILES='https://raw.githubusercontent.com/IonutOjicaDE/mautic4-installer/main/'
 PWD="$(pwd)/"
 FILE_CONF="mautic-install.conf"
 
