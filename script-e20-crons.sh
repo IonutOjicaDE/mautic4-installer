@@ -46,8 +46,8 @@ show_info ✅ 'Crons for web user installed.'
 
 
 sed -i "s|###CRON_FOLDER###|$CRON_FOLDER|g" reset-mautic-permissions.sh
-mv reset-mautic-permissions.sh ${ROOT_FILES_FOLDER}reset-mautic-permissions${MAUTIC_COUNT}.sh
-chmod a+x ${ROOT_FILES_FOLDER}reset-mautic-permissions${MAUTIC_COUNT}.sh
+mv reset-mautic-permissions.sh ${ROOT_FILES_FOLDER}reset-mautic${MAUTIC_COUNT}-permissions.sh
+chmod a+x ${ROOT_FILES_FOLDER}reset-mautic${MAUTIC_COUNT}-permissions.sh
 show_info ✅ 'Cron script for root user installed.'
 
 
@@ -57,7 +57,7 @@ else
   crontab -l > crontab_temp
 fi
 file_content="$(cat << EOF
-4${cron_execution_hour} 0 * * * bash ${ROOT_FILES_FOLDER}reset-mautic-permissions${MAUTIC_COUNT}.sh >> ${CRON_FOLDER}r-cron.log 2>&1
+4${cron_execution_hour} 0 * * * bash ${ROOT_FILES_FOLDER}reset-mautic${MAUTIC_COUNT}-permissions.sh >> ${CRON_FOLDER}r-cron.log 2>&1
 EOF
 )"
 echo "${file_content}" >> crontab_temp
