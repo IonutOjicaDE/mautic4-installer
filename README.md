@@ -112,6 +112,8 @@ For those that are new to this editor, here are some shortcut keys:
 | `Ctrl+S` | save the document |
 | `Ctrl+X` | exit nano |
 | right click | paste from clipboard |
+| `Alt+#` | show line numbers (`Alt+#`=`Alt+Shift+3`) |
+| `Alt+$` | wrap long lines (`Alt+$`=`Alt+Shift+4`) |
 
 # Cronjobs
 The main challange was to have the jobs run each second and to have them run one after the other, without any parallel executions.
