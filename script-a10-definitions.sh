@@ -6,7 +6,7 @@
 #                                                                             #
 ###############################################################################
 
-show_info 🛈 'Loading definitions ...'
+echo "[$(date +%Y-%m-%d_%H:%M:%S)]  InstallScript  🛈  Loading definitions ..."
 
 RCol='\e[0m'    # Text Reset
 
