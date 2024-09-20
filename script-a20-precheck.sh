@@ -98,12 +98,12 @@ while true; do
     fi
 
 
-    if [ ! -z "${MAUTIC_COUNT}" ] || [ "${MAUTIC_COUNT}" -eq 1 ]; then
+    if [ -n "${MAUTIC_COUNT}" ] && [ "${MAUTIC_COUNT}" -eq 1 ]; then
       show_info 🛈 "First installation of Mautic on this server."
-    elif [ "${MAUTIC_COUNT}" -gt 5 ]; then
+    elif [ -n "${MAUTIC_COUNT}" ] && [ "${MAUTIC_COUNT}" -gt 5 ]; then
       show_info ❌ 'I strongly do not recommend to install more than 5 Mautic instances on the same server !'
       file_config_errors=1
-    elif [ "${MAUTIC_COUNT}" -gt 1 ]; then
+    elif [ -n "${MAUTIC_COUNT}" ] && [ "${MAUTIC_COUNT}" -gt 1 ]; then
       show_info 🛈  "Mautic installation count on this server: ${MAUTIC_COUNT}"
       if [ -z "${MYSQL_ROOT_PASSWORD}" ]; then
         show_info ❌ 'We need the MYSQL_ROOT_PASSWORD. Please put it inside the config file.'
@@ -122,13 +122,17 @@ while true; do
       file_config_errors=1
     fi
 
-
-    if apt-cache show "php${PHP_VERSION}" > /dev/null 2>&1; then
-      show_info 🛈 "Installing php${PHP_VERSION}..."
-      DEBIAN_FRONTEND=noninteractive apt-get -yq install php${PHP_VERSION}
+    if [ ! -z "${PHP_VERSION}" ]; then
+      if apt-cache show "php${PHP_VERSION}" > /dev/null 2>&1; then
+        show_info 🛈 "Installing php${PHP_VERSION}..."
+        DEBIAN_FRONTEND=noninteractive apt-get -yq install php${PHP_VERSION}
+      else
+        show_info ❌ "PHP version ${PHP_VERSION} is not available. Do you want to specify another version and then try again?"
+        answer_yes_else_stop && continue
+      fi
     else
-      show_info ❌ "PHP version ${PHP_VERSION} is not available. Do you want to specify another version and then try again?"
-      answer_yes_else_stop && continue
+      show_info ❌ "Please check the value of PHP_VERSION=${PHP_VERSION} inside the config file: should be defined."
+      file_config_errors=1
     fi
 
 
@@ -177,7 +181,7 @@ while true; do
     if [[ ! -e "${PWD}${FILE_CONF}" ]]; then
       show_info 🛈 'Config file for the installation does not exists; downloading...'
       wget -q "${URL_TO_FILES}${FILE_CONF}"
-      echo ✅ 'Config file for the installation downloaded. Open in editor...'
+      show_info ✅ 'Config file for the installation downloaded. Open in editor...'
       nano "${PWD}${FILE_CONF}"
       continue
     else
