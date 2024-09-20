@@ -60,7 +60,7 @@ while true; do
     fi
     show_info ✅ 'Syntax check passed.'
 
-    bash "${PWD}${FILE_CONF}"
+    source "${PWD}${FILE_CONF}"
 
     show_info ✅ 'Config file loaded !'
 
