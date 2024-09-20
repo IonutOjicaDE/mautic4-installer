@@ -61,6 +61,7 @@ show_debug() {
 
 
 function answer_yes_else_stop() {
+  show_info ❓ "$1"
   read -p 'Answer: ' answer
   if ! check_positive "${answer}"; then
     exit 1
