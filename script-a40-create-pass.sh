@@ -8,7 +8,7 @@
 
 show_info 🛈 'Creating passwords and saving the file...'
 
-if [ -z "$MYSQL_ROOT_PASSWORD" ]; then
+if [ -z "${MYSQL_ROOT_PASSWORD}" ]; then
       MYSQL_ROOT_PASSWORD=$(cat /dev/urandom | tr -dc '1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_' | head -c40)
        ROOT_USER_PASSWORD=$(cat /dev/urandom | tr -dc '1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_' | head -c40)
 fi
@@ -28,7 +28,7 @@ MYSQL_MAUTICUSER_PASSWORD=$(cat /dev/urandom | tr -dc '1234567890abcdefghijklmno
 
 show_info ✅ 'Passwords created. Saving the passwords in .sh, .php, .txt files...'
 
-mkdir $CRON_FOLDER
+mkdir "${CRON_FOLDER}"
 
 content_file_sh="
 MAIN_DOMAIN='${MAIN_DOMAIN}'
@@ -68,25 +68,25 @@ show_info ✅ 'Passwords saved in .sh file.'
 
 content_file_php=""
 while IFS= read -r current_line; do
-  if [[ "$current_line" == *=* ]]; then
+  if [[ "${current_line}" == *=* ]]; then
     temp="${current_line%=*}"
     content_file_php+="$""$temp='${!temp}';"$'\n'
   else
-    content_file_php+="$current_line"$'\n'
+    content_file_php+="${current_line}"$'\n'
   fi
-done <<< "$content_file_sh"
+done <<< "${content_file_sh}"
 show_info ✅ 'Passwords saved in .php file.'
 
-printf "<?php\n%s\n?>" "${content_file_php}" > $CRON_FOLDER'mautic.php'
+printf "<?php\n%s\n?>" "${content_file_php}" > "${CRON_FOLDER}mautic.php"
 
 content_file_txt=""
 while IFS= read -r current_line; do
-  if [[ "$current_line" == *=* ]]; then
-    content_file_txt+=$(echo "$current_line" | sed "s/=/ = /g; s/'//g")$'\n'
+  if [[ "${current_line}" == *=* ]]; then
+    content_file_txt+=$(echo "${current_line}" | sed "s/=/ = /g; s/'//g")$'\n'
   else
-    content_file_txt+="$current_line"$'\n'
+    content_file_txt+="${current_line}"$'\n'
   fi
-done <<< "$content_file_sh"
+done <<< "${content_file_sh}"
 
-printf "${content_file_txt}" > $CRON_FOLDER'mautic.txt'
+printf "${content_file_txt}" > "${CRON_FOLDER}mautic.txt"
 show_info ✅ 'Passwords saved in .txt file.'

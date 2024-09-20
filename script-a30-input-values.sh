@@ -29,19 +29,19 @@ echo 'Source created by Matthias Reich - Info@Online-Business-Duplicator.de ( ht
 echo
 echo "==========================================================================================================================="
 echo
-echo "The subdomain where Mautic will be accessible: $MAUTIC_SUBDOMAIN"
+echo "The subdomain where Mautic will be accessible: ${MAUTIC_SUBDOMAIN}"
 echo
-echo "The email address from which Mautic will send emails: $SENDER_EMAIL"
+echo "The email address from which Mautic will send emails: ${SENDER_EMAIL}"
 echo
-echo "First and last name of the sender: $SENDER_FIRSTNAME $SENDER_LASTNAME"
+echo "First and last name of the sender: ${SENDER_FIRSTNAME} ${SENDER_LASTNAME}"
 echo
-echo "Used time zone: $SENDER_TIMEZONE"
+echo "Used time zone: ${SENDER_TIMEZONE}"
 echo
-if [ ! -z "$MAUTIC_COUNT" ] && [ "$MAUTIC_COUNT" -gt 1 ]; then
-  echo "Mautic installation count on this server: $MAUTIC_COUNT"
+if [ ! -z "${MAUTIC_COUNT}" ] && [ "${MAUTIC_COUNT}" -gt 1 ]; then
+  echo "Mautic installation count on this server: ${MAUTIC_COUNT}"
   echo
 fi
-echo "Administration emails will be sent from: $FROM_EMAIL (to ${SEND_PASS_TO_SENDER_EMAIL:+$SENDER_EMAIL and to }$ADMIN_EMAIL)"
+echo "Administration emails will be sent from: ${FROM_EMAIL} (to ${SEND_PASS_TO_SENDER_EMAIL:+$SENDER_EMAIL and to }${ADMIN_EMAIL})"
 echo
 if [ "${SSL_CERTIFICATE,,}" == "test" ]; then
   echo 'Debug mode enabled: we will use the option --test-cert to obtain a SSL certificate.'

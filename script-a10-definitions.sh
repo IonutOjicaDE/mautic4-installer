@@ -36,33 +36,33 @@ function show_info() {
 
   if [[ "$seconds" =~ ^[1-9]$ ]]; then
     execution_count=$((execution_count + 1))
-    echo -e "\n${BCya}[$(date +%Y-%m-%d_%H:%M:%S)]  InstallScript  $state  $comment"
-    echo -e "[$(date +%Y-%m-%d_%H:%M:%S)]  InstallScript  ⌛  ($execution_count) We continue after $seconds second$([[ $wait != 1 ]] && echo "s") ..."
+    echo -e "\n${BCya}[$(date +%Y-%m-%d_%H:%M:%S)]  InstallScript  ${state}  ${comment}"
+    echo -e "[$(date +%Y-%m-%d_%H:%M:%S)]  InstallScript  ⌛  (${execution_count}) We continue after ${seconds} second$([[ $wait != 1 ]] && echo "s") ..."
     echo -e "${RCol}"
 
     line=$(printf '%.0s.' {1..100})
-    printf "%s\r" "$line"
+    printf "%s\r" "${line}"
     for ((i=1; i<=100; i++)); do
       line="${line:0:i-1}=${line:i}"
-      printf "%s\r" "$line"
-      sleep "0.0$seconds"
+      printf "%s\r" "${line}"
+      sleep "0.0${seconds}"
     done
 
     echo -e "\n"
   else
-    echo "[$(date +%Y-%m-%d_%H:%M:%S)]  InstallScript  $state  $comment"
+    echo "[$(date +%Y-%m-%d_%H:%M:%S)]  InstallScript  ${state}  ${comment}"
   fi
 }
 
 show_debug() {
 	execution_count=$((execution_count + 1))
-	echo ; echo ; echo -e "${BCya}$execution_count. $1 : ⌛ We continue after 1 second ..."; echo -e "${RCol}"; echo ; sleep 1
+	echo ; echo ; echo -e "${BCya}${execution_count}. $1 : ⌛ We continue after 1 second ..."; echo -e "${RCol}"; echo ; sleep 1
 }
 
 
 function answer_yes_else_stop() {
   read -p 'Answer: ' answer
-  if ! check_positive "$answer"; then
+  if ! check_positive "${answer}"; then
     exit 1
   fi
   return 0

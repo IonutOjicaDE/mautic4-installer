@@ -6,17 +6,17 @@
 #                                                                             #
 ###############################################################################
 
-if [ ! -z "$MAUTIC_COUNT" ] || [ "$MAUTIC_COUNT" -eq 1 ]; then
+if [ ! -z "${MAUTIC_COUNT}" ] || [ "${MAUTIC_COUNT}" -eq 1 ]; then
   if dpkg -l | grep -qw ufw; then
     show_info ✅ 'Ufw (Firewall) is already installed.'
   else
-    show_info ❌ "Error: Ufw (Firewall) should already be installed, when installing $MAUTIC_COUNT instance of Mautic !"
+    show_info ❌ "Error: Ufw (Firewall) should already be installed, when installing ${MAUTIC_COUNT} instance of Mautic !"
     exit 1
   fi
   if dpkg -l | grep -qw fail2ban; then
     show_info ✅ 'fail2ban is already installed.'
   else
-    show_info ❌ "Error: fail2ban should already be installed, when installing $MAUTIC_COUNT instance of Mautic !"
+    show_info ❌ "Error: fail2ban should already be installed, when installing ${MAUTIC_COUNT} instance of Mautic !"
     exit 1
   fi
 else

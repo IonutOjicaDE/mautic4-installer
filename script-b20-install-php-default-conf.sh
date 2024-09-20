@@ -6,7 +6,7 @@
 #                                                                             #
 ###############################################################################
 
-if [ ! -z "$MAUTIC_COUNT" ] || [ "$MAUTIC_COUNT" -eq 1 ]; then
+if [ ! -z "${MAUTIC_COUNT}" ] || [ "${MAUTIC_COUNT}" -eq 1 ]; then
   show_info 🛈 'No install or configuration of php or configuration of Nginx'
 else
 
@@ -81,16 +81,17 @@ EOF
   echo "${file_content}" > /etc/systemd/system/nginx.service.d/restart.conf
   systemctl daemon-reload
 
-  sed -i 's/memory_limit = 128M/memory_limit = 2048M/' /etc/php/${PHP_VERSION}/fpm/php.ini
-  sed -i 's/post_max_size = 8M/post_max_size = 512M/' /etc/php/${PHP_VERSION}/fpm/php.ini
-  sed -i 's/upload_max_filesize = 2M/upload_max_filesize = 512M/' /etc/php/${PHP_VERSION}/fpm/php.ini
-  sed -i 's/max_execution_time = 30/max_execution_time = 360/' /etc/php/${PHP_VERSION}/fpm/php.ini
-  sed -i 's/;date.timezone =/date.timezone = UTC/' /etc/php/${PHP_VERSION}/fpm/php.ini
+  php_ini_file="/etc/php/${PHP_VERSION}/fpm/php.ini"
+  sed -i 's/memory_limit = 128M/memory_limit = 2048M/' "${php_ini_file}"
+  sed -i 's/post_max_size = 8M/post_max_size = 512M/' "${php_ini_file}"
+  sed -i 's/upload_max_filesize = 2M/upload_max_filesize = 512M/' "${php_ini_file}"
+  sed -i 's/max_execution_time = 30/max_execution_time = 360/' "${php_ini_file}"
+  sed -i 's/;date.timezone =/date.timezone = UTC/' "${php_ini_file}"
   #PHP will not try to correct the path to script filex
-  sed -i 's/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/' /etc/php/${PHP_VERSION}/fpm/php.ini
+  sed -i 's/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/' "${php_ini_file}"
   #Increase the lifetime of the unused php sessions
   #1440 = 24 minutes , 14400 = 4 hours
-  sed -i 's/session.gc_maxlifetime = 1440/session.gc_maxlifetime = 14400/' /etc/php/${PHP_VERSION}/fpm/php.ini
+  sed -i 's/session.gc_maxlifetime = 1440/session.gc_maxlifetime = 14400/' "${php_ini_file}"
 
   systemctl restart php${PHP_VERSION}-fpm.service
 

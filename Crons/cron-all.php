@@ -4,19 +4,19 @@ ob_start(); // prevent output anything
 require_once __DIR__ . '/mautic.php';
 ob_get_clean();
 
-$clearCacheFile     = $CRON_FOLDER . 'clear-cache';
+$clearCacheFile     = "${CRON_FOLDER}clear-cache";
 $cacheClearedFile   = $clearCacheFile . '-done';
-$clearCacheCronFile = $CRON_FOLDER . 'cron-clear-cache.php';
-$DO_RUN_File        = $CRON_FOLDER . 'DO--RUN';
-$DO_NOT_RUN_File    = $CRON_FOLDER . 'DO-NOT-RUN';
+$clearCacheCronFile = "${CRON_FOLDER}cron-clear-cache.php";
+$DO_RUN_File        = "${CRON_FOLDER}DO--RUN";
+$DO_NOT_RUN_File    = "${CRON_FOLDER}DO-NOT-RUN";
 
 if (file_exists($DO_NOT_RUN_File)) { goto finish; }
 
 $currentMinutes     = date('G') * 60 + date('i'); // Current minute from midnight
-$softExceedFile     = $CRON_FOLDER . 'log/crons-' . date('Y-m-d') . '.csv';
-$hardExceedFile     = $CRON_FOLDER . 'crons-warning.csv';
+$softExceedFile     = "${CRON_FOLDER}log/crons-" . date('Y-m-d') . '.csv';
+$hardExceedFile     = "${CRON_FOLDER}crons-warning.csv";
 $hardExceedTimes    = 5;
-$run_console        = '/usr/bin/php ' . ${MAUTIC_FOLDER} . 'bin/console mautic:';
+$run_console        = "/usr/bin/php ${MAUTIC_FOLDER}bin/console mautic:";
 
 $commands = [
 // Process webhooks from the queue - UNCOMENT if webhooks are used
@@ -41,10 +41,10 @@ $commands = [
 "broadcasts:send --limit=350" => ["softTimeLimit" => 59, "hardTimeLimit" => 110, "folder" => "", "eachMinutes" => 1],
 
 // Process email queue. If the system configuration is queueing emails, this cron job processes them
-"emails:send --message-limit=360" => ["softTimeLimit" => 59, "hardTimeLimit" => 110, "folder" => ${MAUTIC_FOLDER} . 'var/spool', "eachMinutes" => 1],
+"emails:send --message-limit=360" => ["softTimeLimit" => 59, "hardTimeLimit" => 110, "folder" => "${MAUTIC_FOLDER}var/spool", "eachMinutes" => 1],
 
 // Import contacts in the background
-"import --limit=300" => ["softTimeLimit" => 59, "hardTimeLimit" => 110, "folder" => ${MAUTIC_FOLDER} . 'var/tmp/imports', "eachMinutes" => 1],
+"import --limit=300" => ["softTimeLimit" => 59, "hardTimeLimit" => 110, "folder" => "${MAUTIC_FOLDER}var/tmp/imports", "eachMinutes" => 1],
 
 // Send scheduled marketing messages (emails or SMS)
 "messages:send" => ["softTimeLimit" => 59, "hardTimeLimit" => 110, "folder" => "", "eachMinutes" => 1]
@@ -70,7 +70,7 @@ finish:
 
 if (file_exists($clearCacheFile)) {
  ob_start(); // prevent output anything
- $t = include "$clearCacheCronFile";
+ $t = include "${clearCacheCronFile}";
  ob_get_clean();
  rename($clearCacheFile, $cacheClearedFile);
 }
