@@ -42,7 +42,7 @@ install_script_files=(
 for install_script_file in "${install_script_files[@]}"; do
   wget -q "${URL_TO_FILES}${install_script_file}"
   if [[ "${install_script_file}" == *.sh ]]; then
-    bash "${install_script_file}"
+    source "${install_script_file}"
   elif [[ "${install_script_file}" == *.perl ]]; then
     perl -s "${install_script_file}" "${MAUTIC_FOLDER}" "${MAUTIC_SUBDOMAIN}"
     cp "${install_script_file}" "${CRON_FOLDER}"
