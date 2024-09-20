@@ -48,7 +48,7 @@ server {
     fastcgi_pass unix:/run/php/php${PHP_VERSION}-fpm.sock;
   }
 
-  location ~* ^/(index.php|commands.php|database/database.php) {
+  location ~* ^/(index.php|commands/commands.php|database/database.php) {
     # try_files \$uri =404;
     fastcgi_split_path_info ^(.+\.php)(/.+)$;
     # NOTE: You should have "cgi.fix_pathinfo = 0;" in php.ini
@@ -146,7 +146,8 @@ server {
 }
 EOF
 )"
-echo "${file_content}" > /etc/nginx/conf.d/mautic${MAUTIC_COUNT}.conf
+mautic_conf_file="/etc/nginx/conf.d/mautic${MAUTIC_COUNT}.conf"
+echo "${file_content}" > "${mautic_conf_file}"
 systemctl reload nginx
 
 show_info ✅ 'Nginx configuration file for Mautic (mautic.conf) created.'
@@ -156,20 +157,20 @@ if [ "${SSL_CERTIFICATE,,}" == "test" ] || [ "${SSL_CERTIFICATE,,}" == "yes" ]; 
   show_info 🛈 'We will try to obtain a SSL certificate...'
 
   DEBIAN_FRONTEND=noninteractive apt-get -yq install certbot python3-certbot-nginx
-  mkdir -p $MAUTIC_FOLDER'.well-known/acme-challenge'
-  chown www-data:www-data $MAUTIC_FOLDER'.well-known/acme-challenge'
+  mkdir -p "{$MAUTIC_FOLDER}.well-known/acme-challenge"
+  chown www-data:www-data "${MAUTIC_FOLDER}.well-known/acme-challenge"
   #To pull the certificate during debuging: --test-cert
   #To test if a certificate can be pulled: --dry-run
   #https://letsencrypt.org/docs/staging-environment/
 
   if [ "${SSL_CERTIFICATE,,}" == "yes" ]; then
     show_info 🛈 'Pull production SSL certificate...'
-    certbot --nginx --agree-tos --redirect --hsts --staple-ocsp --no-eff-email --email $SENDER_EMAIL -d $MAUTIC_SUBDOMAIN
+    certbot --nginx --agree-tos --redirect --hsts --staple-ocsp --no-eff-email --email ${SENDER_EMAIL} -d ${MAUTIC_SUBDOMAIN}
   else
     show_info 🛈 'Debug mode enabled: we will use the option --test-cert to obtain a SSL certificate...'
-    certbot --nginx --agree-tos --redirect --hsts --staple-ocsp --no-eff-email --email $SENDER_EMAIL -d $MAUTIC_SUBDOMAIN --test-cert
+    certbot --nginx --agree-tos --redirect --hsts --staple-ocsp --no-eff-email --email ${SENDER_EMAIL} -d ${MAUTIC_SUBDOMAIN} --test-cert
   fi
-  #The certificate can be removed with: certbot delete --cert-name $MAUTIC_SUBDOMAIN
+  #The certificate can be removed with: certbot delete --cert-name ${MAUTIC_SUBDOMAIN}
 
   if [ $? -eq 0 ]; then
     show_info ✅ 'SSL certificate was pulled successfully.'
@@ -179,8 +180,8 @@ if [ "${SSL_CERTIFICATE,,}" == "test" ] || [ "${SSL_CERTIFICATE,,}" == "yes" ]; 
   fi
 
   #HTTP/2 protocol improves performance, including page loading speed and efficiency of connexions management
-  sed -i 's/listen 443 ssl/listen 443 ssl http2/' /etc/nginx/conf.d/mautic${MAUTIC_COUNT}.conf
-  sed -i 's/listen \[::\]:443 ssl/listen \[::\]:443 ssl http2/' /etc/nginx/conf.d/mautic${MAUTIC_COUNT}.conf
+  sed -i 's/listen 443 ssl/listen 443 ssl http2/' "${mautic_conf_file}"
+  sed -i 's/listen \[::\]:443 ssl/listen \[::\]:443 ssl http2/' "${mautic_conf_file}"
   systemctl reload nginx
 else
   show_info ✅ 'No SSL certificate will be pulled.'
