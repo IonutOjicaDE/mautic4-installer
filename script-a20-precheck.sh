@@ -60,6 +60,9 @@ while true; do
     fi
     show_info ✅ 'Syntax check passed.'
 
+    unset MAUTIC_COUNT
+    unset MYSQL_ROOT_PASSWORD
+    unset ROOT_USER_PASSWORD
     source "${PWD}${FILE_CONF}"
 
     show_info ✅ 'Config file loaded !'
