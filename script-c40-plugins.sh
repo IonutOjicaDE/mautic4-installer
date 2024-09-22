@@ -31,7 +31,7 @@ show_info ✅ 'Plugin: MauticPostalServerBundle is installed.'
 show_info 🛈 'Installing Plugin: JotaworksDoiBundle...'
 wget -q 'https://github.com/IonutOjicaDE/mautic-doi-plugin/archive/refs/heads/main.zip' -O JotaworksDoiBundle.zip
 unzip -q JotaworksDoiBundle.zip
-mv mautic-doi-plugin-main/src/JotaworksDoiBundle -d "${MAUTIC_FOLDER}plugins/"
+mv "mautic-doi-plugin-main/src/JotaworksDoiBundle" "${MAUTIC_FOLDER}plugins/"
 rm mautic-doi-plugin-main
 rm JotaworksDoiBundle.zip
 show_info ✅ 'Plugin: JotaworksDoiBundle is installed.'
