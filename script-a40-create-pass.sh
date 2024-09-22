@@ -10,6 +10,8 @@ show_info 🛈 'Creating passwords and saving the file...'
 
 if [ -z "${MYSQL_ROOT_PASSWORD}" ]; then
       MYSQL_ROOT_PASSWORD=$(cat /dev/urandom | tr -dc '1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_' | head -c40)
+fi
+if [ -z "${ROOT_USER_PASSWORD}" ]; then
        ROOT_USER_PASSWORD=$(cat /dev/urandom | tr -dc '1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_' | head -c40)
 fi
 MYSQL_MAUTICUSER_PASSWORD=$(cat /dev/urandom | tr -dc '1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_' | head -c40)
