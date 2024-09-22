@@ -40,7 +40,7 @@ install_script_files=(
 )
 
 for install_script_file in "${install_script_files[@]}"; do
-  wget -q "${URL_TO_FILES}${install_script_file}"
+  wget -q "${URL_TO_FILES}${install_script_file}" -O "${install_script_file}"
   if [[ "${install_script_file}" == *.sh ]]; then
     source "${install_script_file}"
   elif [[ "${install_script_file}" == *.perl ]]; then
