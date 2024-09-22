@@ -98,13 +98,32 @@ while true; do
     fi
 
 
-    if [ -n "${MAUTIC_COUNT}" ] && [ "${MAUTIC_COUNT}" -eq 1 ]; then
+    if [ -z "${MAUTIC_COUNT}" ]; then
       show_info 🛈 "First installation of Mautic on this server."
-    elif [ -n "${MAUTIC_COUNT}" ] && [ "${MAUTIC_COUNT}" -gt 5 ]; then
-      show_info ❌ 'I strongly do not recommend to install more than 5 Mautic instances on the same server !'
+    elif [[ "${MAUTIC_COUNT}" =~ ^[0-9]+$ ]]; then
+      if [ "${MAUTIC_COUNT}" -gt 5 ]; then
+        show_info ❌ "MAUTIC_COUNT=${MAUTIC_COUNT}: I strongly do not recommend to install more than 5 Mautic instances on the same server !"
+        file_config_errors=1
+      elif [ "${MAUTIC_COUNT}" -gt 1 ]; then
+        show_info 🛈  "Mautic installation count on this server: ${MAUTIC_COUNT}"
+      elif [ "${MAUTIC_COUNT}" -eq 1 ]; then
+        show_info 🛈 "First installation of Mautic on this server."
+        unset MAUTIC_COUNT
+      else
+        show_info 🛈 "I assume this will be first installation of Mautic on this server."
+        unset MAUTIC_COUNT
+      fi
+    else
+      show_info ❌ "Please check the value of MAUTIC_COUNT=${MAUTIC_COUNT} inside the config file: should be a value between 1 to 5 or commented out."
       file_config_errors=1
-    elif [ -n "${MAUTIC_COUNT}" ] && [ "${MAUTIC_COUNT}" -gt 1 ]; then
-      show_info 🛈  "Mautic installation count on this server: ${MAUTIC_COUNT}"
+    fi
+
+    if [ -d "/var/www/mautic${MAUTIC_COUNT}" ]; then
+      show_info ⛔ "ATTENTION: There is already the ${MAUTIC_COUNT} installation of Mautic on this server! Please choose another instance or uninstall ${MAUTIC_COUNT} Mautic."
+      file_config_errors=1
+    fi
+
+    if [[ "${MAUTIC_COUNT}" =~ ^[0-9]+$ ]] && [ "${MAUTIC_COUNT}" -gt 1 ]; then
       if [ -z "${MYSQL_ROOT_PASSWORD}" ]; then
         show_info ❌ 'We need the MYSQL_ROOT_PASSWORD. Please put it inside the config file.'
         file_config_errors=1
@@ -117,10 +136,8 @@ while true; do
       else
         show_info ✅ 'ROOT_USER_PASSWORD found.'
       fi
-    else
-      show_info ❌ "Please check the value of MAUTIC_COUNT=${MAUTIC_COUNT} inside the config file: should be a value between 1 to 5."
-      file_config_errors=1
     fi
+
 
     if [ ! -z "${PHP_VERSION}" ]; then
       if apt-cache show "php${PHP_VERSION}" > /dev/null 2>&1; then
