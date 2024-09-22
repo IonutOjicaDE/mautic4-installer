@@ -9,6 +9,7 @@
 
 use strict;
 use warnings;
+use POSIX qw(strftime);
 
 #make multiline replace possible
 #use also with modifiers smg
@@ -232,6 +233,6 @@ sub write_file {
 
 sub show_info {
   my ($state, $comment) = @_;
-  my $timestamp = strftime "%Y-%m-%d_%H:%M:%S", localtime;
+  my $timestamp = strftime()"%Y-%m-%d_%H:%M:%S", localtime);
   print "[$timestamp]  InstallScript  $state  $comment\n";
 }
