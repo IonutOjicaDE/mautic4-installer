@@ -41,7 +41,7 @@ if [ ! -z "${MAUTIC_COUNT}" ]; then
   echo "Mautic installation count on this server: ${MAUTIC_COUNT}"
   echo
 fi
-echo "Administration emails will be sent from: ${FROM_EMAIL} (to ${SEND_PASS_TO_SENDER_EMAIL:+$SENDER_EMAIL and to }${ADMIN_EMAIL})"
+echo "Administration emails will be sent from: ${FROM_EMAIL} (to $(check_positive "${SEND_PASS_TO_SENDER_EMAIL}" && echo "${SENDER_EMAIL} and to ")${ADMIN_EMAIL})"
 echo
 if [ "${SSL_CERTIFICATE,,}" == "test" ]; then
   echo 'Debug mode enabled: we will use the option --test-cert to obtain a SSL certificate.'
