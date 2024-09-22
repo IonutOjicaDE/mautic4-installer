@@ -7,9 +7,7 @@
 ###############################################################################
 
 show_info 🛈 'Downloading MySQL database template...'
-wget -q "${URL_TO_FILES}mautic-database-template-ro.zip"
-unzip mautic-database-template-ro.zip
-rm mautic-database-template-ro.zip
+wget -q "${URL_TO_FILES}mautic-database-template-ro.sql"
 
 sed -i "s|###SENDER_EMAIL###|$SENDER_EMAIL|g" mautic-database-template-ro.sql
 sed -i "s|###MAUTIC_USERNAME###|$MAUTIC_USERNAME|g" mautic-database-template-ro.sql
