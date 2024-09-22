@@ -6,20 +6,7 @@
 #                                                                             #
 ###############################################################################
 
-if [ ! -z "${MAUTIC_COUNT}" ] || [ "${MAUTIC_COUNT}" -eq 1 ]; then
-  if dpkg -l | grep -qw nginx; then
-    show_info ✅ 'Nginx is already installed.'
-  else
-    show_info ❌ "Error: Nginx should already be installed, when installing ${MAUTIC_COUNT} instance of Mautic !"
-    exit 1
-  fi
-  if dpkg -l | grep -qw mariadb; then
-    show_info ✅ 'MariaDB is already installed.'
-  else
-    show_info ❌ "Error: MariaDB should already be installed, when installing ${MAUTIC_COUNT} instance of Mautic !"
-    exit 1
-  fi
-else
+if [ -z "${MAUTIC_COUNT}" ]; then
 
   show_info 🛈 'Enable autentification using password for root user'
   echo "root:${ROOT_USER_PASSWORD}" | chpasswd
@@ -59,5 +46,20 @@ y
 EOF
 
   show_info ✅ 'MariaDB is installed.'
-  
+
+else
+
+  if dpkg -l | grep -qw nginx; then
+    show_info ✅ 'Nginx is already installed.'
+  else
+    show_info ❌ "Error: Nginx should already be installed, when installing ${MAUTIC_COUNT} instance of Mautic !"
+    exit 1
+  fi
+  if dpkg -l | grep -qw mariadb; then
+    show_info ✅ 'MariaDB is already installed.'
+  else
+    show_info ❌ "Error: MariaDB should already be installed, when installing ${MAUTIC_COUNT} instance of Mautic !"
+    exit 1
+  fi
+
 fi

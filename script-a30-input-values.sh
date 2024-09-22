@@ -37,7 +37,7 @@ echo "First and last name of the sender: ${SENDER_FIRSTNAME} ${SENDER_LASTNAME}"
 echo
 echo "Used time zone: ${SENDER_TIMEZONE}"
 echo
-if [ ! -z "${MAUTIC_COUNT}" ] && [ "${MAUTIC_COUNT}" -gt 1 ]; then
+if [ ! -z "${MAUTIC_COUNT}" ]; then
   echo "Mautic installation count on this server: ${MAUTIC_COUNT}"
   echo
 fi

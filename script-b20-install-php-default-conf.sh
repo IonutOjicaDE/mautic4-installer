@@ -6,9 +6,7 @@
 #                                                                             #
 ###############################################################################
 
-if [ ! -z "${MAUTIC_COUNT}" ] || [ "${MAUTIC_COUNT}" -eq 1 ]; then
-  show_info 🛈 'No install or configuration of php or configuration of Nginx'
-else
+if [ -z "${MAUTIC_COUNT}" ]; then
 
   show_info 🛈 'Install MidnightCommander - orthodox File Explorer...'
   DEBIAN_FRONTEND=noninteractive apt-get -yq install mc
@@ -97,4 +95,6 @@ EOF
 
   show_info ✅ 'Configuration of web server Nginx and php finished.'
 
+else
+  show_info 🛈 'No install or configuration of php or configuration of Nginx'
 fi

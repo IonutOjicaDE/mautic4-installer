@@ -22,7 +22,7 @@ chmod -R 755 "${BACKUP_FILES_FOLDER}"
 show_info ✅ 'Cron scripts installed.'
 
 
-if [ ! -z "${MAUTIC_COUNT}" ] || [ "${MAUTIC_COUNT}" -eq 1 ]; then
+if [ -z "${MAUTIC_COUNT}" ]; then
   echo "" > crontab_temp
   cron_execution_hour="1"
 else
@@ -51,7 +51,7 @@ chmod a+x "${ROOT_FILES_FOLDER}reset-mautic${MAUTIC_COUNT}-permissions.sh"
 show_info ✅ 'Cron script for root user installed.'
 
 
-if [ ! -z "${MAUTIC_COUNT}" ] || [ "${MAUTIC_COUNT}" -eq 1 ]; then
+if [ -z "${MAUTIC_COUNT}" ]; then
   echo "" > crontab_temp
 else
   crontab -l > crontab_temp

@@ -28,12 +28,12 @@ show_info 🛈 'Save encrypted password for mautic admin in the database...'
 mautic_admin_password_md5=$(echo "$MAUTIC_ADMIN_PASSWORD" | openssl passwd -1 -stdin)
 echo "use mautic${MAUTIC_COUNT}; UPDATE users SET password='${mautic_admin_password_md5}' WHERE username='${MAUTIC_USERNAME}';" | mysql -u root -p${MYSQL_ROOT_PASSWORD}
 
-if [ ! -z "$MAUTIC_COUNT" ] || [ "$MAUTIC_COUNT" -eq 1 ]; then
-  show_info 🛈 'NO change of the authentification to MySQL of root user from localhost to mysql_native_password...'
-else
+if [ -z "$MAUTIC_COUNT" ]; then
   show_info 🛈 'Change authentification to MySQL of root user from localhost to mysql_native_password...'
   #Schimbă parola utilizatorului root
   echo "ALTER USER 'root'@'localhost' IDENTIFIED VIA 'mysql_native_password';ALTER USER 'root'@'localhost' IDENTIFIED BY '${MYSQL_ROOT_PASSWORD}';FLUSH PRIVILEGES;" | mysql -u root
+else
+  show_info 🛈 'NO change of the authentification to MySQL of root user from localhost to mysql_native_password...'
 fi
 
 
