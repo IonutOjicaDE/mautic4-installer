@@ -4,7 +4,7 @@ show_info 🛈 'Sending passwords over email...'
 
 DEBIAN_FRONTEND=noninteractive apt-get -yq install sendemail
 
-email_subject="Password created for ${MAUTIC_SUBDOMAIN} $(date +'%Y-%m-%d %H:%M')"
+email_subject="Passwords created for ${MAUTIC_SUBDOMAIN} $(date +'%Y-%m-%d %H:%M')"
 email_content=$(cat <<EOL
 Hello ${SENDER_FIRSTNAME},
 
@@ -36,4 +36,4 @@ else
   sendemail -f "${FROM_EMAIL}" -s "${FROM_SERVER_PORT}" -xu "${FROM_USER}" -xp ''${FROM_PASS}'' -t "${ADMIN_EMAIL}" -m "${email_content}" -a "${CRON_FOLDER}mautic.txt" -u "${email_subject}" -o message-charset=utf-8
 fi
 
-show_info ✅ "Email sent."
+show_info ✅ "Email '${email_subject}' sent to $(check_positive "${SEND_PASS_TO_SENDER_EMAIL}" && echo "${SENDER_EMAIL} and to ")${ADMIN_EMAIL}."
