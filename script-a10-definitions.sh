@@ -50,7 +50,7 @@ function show_info() {
 
     echo -e "\n"
   else
-    echo "[$(date +%Y-%m-%d_%H:%M:%S)]  InstallScript  ${state}  ${comment}"
+    echo "${BCya}[$(date +%Y-%m-%d_%H:%M:%S)]  InstallScript  ${state}  ${comment}${RCol}"
   fi
 }
 
