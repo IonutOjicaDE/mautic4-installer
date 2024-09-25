@@ -6,9 +6,10 @@
 
 
 show_info ${ICON_INFO} 'Installing cron scripts...'
+mkdir "${CRON_FOLDER}"
 mkdir "${BACKUP_FILES_FOLDER}"
 
-mv "${INSTALL_FOLDER}crons" "${CRON_FOLDER%/}"
+mv "${INSTALL_FOLDER}crons/"* "${CRON_FOLDER}"
 
 chown -R www-data:www-data "${CRON_FOLDER}"
 chown -R www-data:www-data "${BACKUP_FILES_FOLDER}"
