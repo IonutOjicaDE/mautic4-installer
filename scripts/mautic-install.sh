@@ -114,6 +114,15 @@ DEBIAN_FRONTEND=noninteractive apt-get -yq install unzip >/dev/null
 show_info ${ICON_OK} 'Unzip installed.'
 
 
+if [[ -e "${PWD}mautic4-installer.zip" ]]; then
+  rm "${PWD}mautic4-installer.zip"
+  show_info ${ICON_INFO} 'Old scripts archive removed...'
+fi
+if [[ -d "${INSTALL_FOLDER}" ]]; then
+  rm -r "${INSTALL_FOLDER}"
+  show_info ${ICON_INFO} 'Old installation folder removed...'
+fi
+
 show_info ${ICON_INFO} 'Downloading scripts and utilities needed for installation...'
 wget -q "${URL_TO_ARCHIVE}" -O "${PWD}mautic4-installer.zip"
 if [[ ! -e "${PWD}mautic4-installer.zip" ]]; then
