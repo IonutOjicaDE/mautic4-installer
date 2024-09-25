@@ -6,7 +6,7 @@
 
 DEBIAN_FRONTEND=noninteractive apt-get -yq install sendemail
 
-email_subject="Passwords created for ${MAUTIC_SUBDOMAIN} $(date +'%Y-%m-%d %H:%M')"
+email_subject="Passwords created for ${MAUTIC_SUBDOMAIN} on $(date +'%Y-%m-%d %H:%M')"
 email_content=$(cat <<EOL
 Hello ${SENDER_FIRSTNAME},
 
