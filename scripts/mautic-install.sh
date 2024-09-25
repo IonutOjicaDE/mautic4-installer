@@ -130,7 +130,7 @@ if [[ ! -d "${INSTALL_FOLDER}" ]]; then
   show_info ${ICON_NOGO} 'Terminating installation!'
   exit 1
 fi
-rm "${PWD}mautic4-installer.zip"
+#rm "${PWD}mautic4-installer.zip"
 
 
 ###############################################################################################
@@ -169,7 +169,7 @@ for install_script_file in "${install_script_files[@]}"; do
 done
 
 show_info ${ICON_INFO} 'Removing installation folder...'
-rm -rf "${INSTALL_FOLDER}"
+#rm -rf "${INSTALL_FOLDER}"
 show_info ${ICON_OK} 'Installation folder removed. Execution of installation script finished.'
 
 ####################################################################################
