@@ -26,7 +26,7 @@ show_info ${ICON_INFO} 'Installing the needed packages to add new sources of pac
 DEBIAN_FRONTEND=noninteractive apt-get -yq install apt-transport-https lsb-release ca-certificates >/dev/null
 
 show_info ${ICON_INFO} 'Download and add the GPG key for the php repository from Sury...'
-wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg
+wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg >/dev/null
 echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/php.list
 show_info ${ICON_INFO} 'Update of the packages to include php repository...'
 DEBIAN_FRONTEND=noninteractive apt-get -yq update >/dev/null
@@ -187,7 +187,7 @@ while true; do
     SERVER=$(echo ${FROM_SERVER_PORT} | cut -d':' -f1)
     PORT=$(echo ${FROM_SERVER_PORT} | cut -d':' -f2)
 
-    nc -z -v -w5 ${SERVER} ${PORT}
+    nc -z -v -w5 ${SERVER} ${PORT} >/dev/null
     result=$?
 
     if [ "$result" == 0 ]; then

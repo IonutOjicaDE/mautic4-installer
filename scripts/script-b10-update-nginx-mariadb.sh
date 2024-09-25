@@ -20,9 +20,9 @@ if [ -z "${MAUTIC_COUNT}" ]; then
   show_info ${ICON_INFO} 'Installing nginx...'
   DEBIAN_FRONTEND=noninteractive apt-get -yq install nginx htop >/dev/null
   #Enable autostart of nginx on every reboot
-  systemctl enable nginx
+  systemctl enable nginx >/dev/null
   #Start nginx now
-  systemctl start nginx
+  systemctl start nginx >/dev/null
   #Assure the correct permissions
   chown www-data:www-data /usr/share/nginx/html -R
   show_info ${ICON_OK} 'Nginx is installed.'
@@ -31,7 +31,7 @@ if [ -z "${MAUTIC_COUNT}" ]; then
   show_info ${ICON_INFO} 'Installing MariaDB...'
   DEBIAN_FRONTEND=noninteractive apt-get -yq install mariadb-server mariadb-client >/dev/null
   #Enable autostart of MariaDB on every reboot
-  systemctl enable mariadb
+  systemctl enable mariadb >/dev/null
 
 mysql_secure_installation <<EOF
 y

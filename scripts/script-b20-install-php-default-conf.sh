@@ -14,9 +14,9 @@ if [ -z "${MAUTIC_COUNT}" ]; then
   DEBIAN_FRONTEND=noninteractive apt-get -yq install php${PHP_VERSION} php${PHP_VERSION}-{fpm,mysql,cli,common,opcache,readline,mbstring,xml,gd,curl,imagick,imap,zip,bz2,intl,gmp,xmlrpc,bcmath} >/dev/null
 
   #Enable autostart of php on every reboot
-  systemctl start php${PHP_VERSION}-fpm
+  systemctl start php${PHP_VERSION}-fpm >/dev/null
   #Start php now
-  systemctl enable php${PHP_VERSION}-fpm
+  systemctl enable php${PHP_VERSION}-fpm >/dev/null
 
 
   #Ideally the sessions folder should allow web server to create and modify session files.
