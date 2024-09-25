@@ -25,7 +25,14 @@ echo "You can login to Mautic here: https://${MAUTIC_SUBDOMAIN}"
 echo "use username: ${MAUTIC_USERNAME}"
 echo "and password: ${MAUTIC_ADMIN_PASSWORD}"
 echo
-echo "Passwords created during installations were sent to $(check_positive "${SEND_PASS_TO_SENDER_EMAIL}" && echo "${SENDER_EMAIL} and to ")${ADMIN_EMAIL}"
+if [ "$EMAIL_SENT" = false ]; then
+  echo -e "${BRed}ERROR: The email with the passwords was not sent!"
+  echo "Please manually copy the passwords *now* from the file: ${CRON_FOLDER}mautic.txt !"
+  echo -e "The content is displayed also below:${RCol}"
+  cat "${CRON_FOLDER}mautic.txt"
+else
+  echo "Passwords created during installations were sent to $(check_positive "${SEND_PASS_TO_SENDER_EMAIL}" && echo "${SENDER_EMAIL} and to ")${ADMIN_EMAIL}"
+fi
 echo
 echo '==========================================================================================================================='
 echo 'Updated for Mautic 4 by Ionuţ Ojică - contact@ionutojica.com'

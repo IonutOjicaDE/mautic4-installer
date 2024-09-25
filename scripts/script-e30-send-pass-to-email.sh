@@ -4,7 +4,7 @@
 #####                            Sending passwords over email                             #####
 ###############################################################################################
 
-DEBIAN_FRONTEND=noninteractive apt-get -yq install sendemail
+DEBIAN_FRONTEND=noninteractive apt-get -yq install sendemail >/dev/null
 
 email_subject="Passwords created for ${MAUTIC_SUBDOMAIN} on $(date +'%Y-%m-%d %H:%M')"
 email_content=$(cat <<EOL
@@ -31,9 +31,15 @@ EOL
 )
 
 if check_positive "${SEND_PASS_TO_SENDER_EMAIL}"; then
-  sendemail -f "${FROM_EMAIL}" -s "${FROM_SERVER_PORT}" -xu "${FROM_USER}" -xp ''${FROM_PASS}'' -t "${SENDER_EMAIL}" -cc "${ADMIN_EMAIL}" -m "${email_content}" -a "$CRON_FOLDER}mautic.txt" -u "${email_subject}" -o message-charset=utf-8
+  sendemail -f "${FROM_EMAIL}" -s "${FROM_SERVER_PORT}" -xu "${FROM_USER}" -xp ''${FROM_PASS}'' -t "${SENDER_EMAIL}" -cc "${ADMIN_EMAIL}" -m "${email_content}" -a "$CRON_FOLDER}mautic.txt" -u "${email_subject}" -o message-charset=utf-8 >/dev/null
 else
-  sendemail -f "${FROM_EMAIL}" -s "${FROM_SERVER_PORT}" -xu "${FROM_USER}" -xp ''${FROM_PASS}'' -t "${ADMIN_EMAIL}" -m "${email_content}" -a "${CRON_FOLDER}mautic.txt" -u "${email_subject}" -o message-charset=utf-8
+  sendemail -f "${FROM_EMAIL}" -s "${FROM_SERVER_PORT}" -xu "${FROM_USER}" -xp ''${FROM_PASS}'' -t "${ADMIN_EMAIL}" -m "${email_content}" -a "${CRON_FOLDER}mautic.txt" -u "${email_subject}" -o message-charset=utf-8 >/dev/null
 fi
 
-show_info ${ICON_OK} "Email '${email_subject}' sent to $(check_positive "${SEND_PASS_TO_SENDER_EMAIL}" && echo "${SENDER_EMAIL} and to ")${ADMIN_EMAIL}."
+if [ $? -eq 0 ]; then
+  show_info ${ICON_OK} "Email '${email_subject}' sent to $(check_positive "${SEND_PASS_TO_SENDER_EMAIL}" && echo "${SENDER_EMAIL} and to ")${ADMIN_EMAIL}."
+else
+  EMAIL_SENT=false
+  show_info ${ICON_ERR} "ERROR: The email with the passwords was not sent! Please manually copy the passwords *now* from the file: ${CRON_FOLDER}mautic.txt ! The content is displayed also below:"
+  cat "${CRON_FOLDER}mautic.txt"
+fi
