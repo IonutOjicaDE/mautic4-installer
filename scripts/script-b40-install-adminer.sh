@@ -12,21 +12,19 @@ show_info ${ICON_INFO} 'Download Adminer...'
 
 mkdir -p "${MAUTIC_FOLDER}database/plugins"
 
-cd "${MAUTIC_FOLDER}database/"
-wget -q "${ADMINER_DOWNLOAD_URL}"
+wget -q "${ADMINER_DOWNLOAD_URL}" -O "${MAUTIC_FOLDER}database/adminer.php"
 mv "${INSTALL_FOLDER}other/database.php" "${MAUTIC_FOLDER}database/"
 
-cd "${MAUTIC_FOLDER}database/plugins/"
-wget -q https://raw.githubusercontent.com/adminerevo/adminerevo/master/plugins/plugin.php
-wget -q https://raw.githubusercontent.com/adminerevo/adminerevo/master/plugins/edit-textarea.php
-wget -q https://raw.githubusercontent.com/adminerevo/adminerevo/master/plugins/file-upload.php
-wget -q https://raw.githubusercontent.com/adminerevo/adminerevo/master/plugins/foreign-system.php
-wget -q https://raw.githubusercontent.com/adminerevo/adminerevo/master/plugins/tables-filter.php
-wget -q https://raw.githubusercontent.com/adminerevo/adminerevo/master/plugins/tinymce.php
+ADMINER_PLUGIN_FOLDER="${MAUTIC_FOLDER}database/plugins/"
+wget -q https://raw.githubusercontent.com/adminerevo/adminerevo/master/plugins/plugin.php -O "${MAUTIC_FOLDER}"
+wget -q https://raw.githubusercontent.com/adminerevo/adminerevo/master/plugins/edit-textarea.php -O "${MAUTIC_FOLDER}"
+wget -q https://raw.githubusercontent.com/adminerevo/adminerevo/master/plugins/file-upload.php -O "${MAUTIC_FOLDER}"
+wget -q https://raw.githubusercontent.com/adminerevo/adminerevo/master/plugins/foreign-system.php -O "${MAUTIC_FOLDER}"
+wget -q https://raw.githubusercontent.com/adminerevo/adminerevo/master/plugins/tables-filter.php -O "${MAUTIC_FOLDER}"
+wget -q https://raw.githubusercontent.com/adminerevo/adminerevo/master/plugins/tinymce.php -O "${MAUTIC_FOLDER}"
 
 chown -R www-data:www-data "${MAUTIC_FOLDER}"
 chmod -R 755 "${MAUTIC_FOLDER}"
 
-cd "${PWD}"
 
 show_info ${ICON_OK} 'Adminer is installed.'
