@@ -52,7 +52,7 @@ These sources were also very useful:
 1. Connect trough `ssh` to the server (I use [Termius](https://termius.com/))
 1. Run as the root user:
     ```sh
-    bash <(wget -qO- https://raw.githubusercontent.com/IonutOjicaDE/mautic4-installer/main/mautic-install.sh)
+    bash <(wget -qO- https://raw.githubusercontent.com/IonutOjicaDE/mautic4-installer/main/scripts/mautic-install.sh)
     ```
 
 * the installer will automatically download and open the `config file` in the `nano` text editor, if the config file is not found in the current directory
