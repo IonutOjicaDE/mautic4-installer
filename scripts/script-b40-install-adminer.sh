@@ -16,7 +16,7 @@ cd "${MAUTIC_FOLDER}database/"
 wget -q "${ADMINER_DOWNLOAD_URL}"
 mv "${INSTALL_FOLDER}other/database.php" "${MAUTIC_FOLDER}database/"
 
-cd "${MAUTIC_FOLDER}bazadate/plugins/"
+cd "${MAUTIC_FOLDER}database/plugins/"
 wget -q https://raw.githubusercontent.com/adminerevo/adminerevo/master/plugins/plugin.php
 wget -q https://raw.githubusercontent.com/adminerevo/adminerevo/master/plugins/edit-textarea.php
 wget -q https://raw.githubusercontent.com/adminerevo/adminerevo/master/plugins/file-upload.php
