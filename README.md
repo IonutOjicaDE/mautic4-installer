@@ -1,6 +1,3 @@
-# The script is not working yet
-I am not finished open-sourcing all the files and I plan to test afterwards. So at the moment, the installer is not working. When it will work, I will remove this text.
-
 # Presentation
 Installer script for Mautic V4 on VPS with Debian 12 is a bash script that allows you to install all that is needed for a fully production ready Mautic 4 instance. It can be used to install also up to 5x Mautic 4 instances on the same server.
 
