@@ -74,6 +74,13 @@ while true; do
 
     show_info ${ICON_OK} 'Config file loaded !'
 
+    if [ -z "${SENDER_FIRSTNAME}" ]; then
+      show_info ${ICON_ERR} "First name is empty. Opening the configuration file in the Editor..."
+      # Open the Mautic installation configuration file in the Editor. Continue after saving the file and exiting nano.
+      nano "${FILE_CONF}"
+      continue
+    fi
+
     file_config_errors=0
 
     if [[ ("${SENDER_FIRSTNAME}" =~ ^[a-zA-Z0-9_]+$) ]]; then
@@ -148,6 +155,11 @@ while true; do
       fi
     fi
 
+    if [ $file_config_errors -ne 0 ] && answer_yes_else_stop "Do you want to correct the errors? Should I open the editor with the config file?"; then
+      # Open the Mautic installation configuration file in the Editor. Continue after saving the file and exiting nano.
+      nano "${FILE_CONF}"
+      continue
+    fi
 
     if [ ! -z "${PHP_VERSION}" ]; then
       if apt-cache show "php${PHP_VERSION}" > /dev/null 2>&1; then
