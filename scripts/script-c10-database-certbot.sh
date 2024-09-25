@@ -156,7 +156,7 @@ if [ "${SSL_CERTIFICATE,,}" == "test" ] || [ "${SSL_CERTIFICATE,,}" == "yes" ]; 
   show_info ${ICON_INFO} 'We will try to obtain a SSL certificate...'
 
   DEBIAN_FRONTEND=noninteractive apt-get -yq install certbot python3-certbot-nginx
-  mkdir -p "{$MAUTIC_FOLDER}.well-known/acme-challenge"
+  mkdir -p "${MAUTIC_FOLDER}.well-known/acme-challenge"
   chown www-data:www-data "${MAUTIC_FOLDER}.well-known/acme-challenge"
   #To pull the certificate during debuging: --test-cert
   #To test if a certificate can be pulled: --dry-run
