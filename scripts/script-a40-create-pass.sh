@@ -28,6 +28,7 @@ show_info ${ICON_OK} 'Passwords created. Saving the passwords in .sh, .php, .txt
 
 
 mkdir "${CRON_FOLDER}"
+mkdir "${BACKUP_FILES_FOLDER}"
 
 content_file_sh="
 MAIN_DOMAIN='${MAIN_DOMAIN}'
