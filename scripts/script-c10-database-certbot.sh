@@ -1,19 +1,18 @@
 #!/bin/bash
 
-###############################################################################
-#                                                                             #
-# Create database, Nginx configuration file and pull ssl certificate          #
-#                                                                             #
-###############################################################################
+###############################################################################################
+#####        Create database, Nginx configuration file and pull ssl certificate           #####
+###############################################################################################
 
-show_info 🛈 "Create mautic${MAUTIC_COUNT} and user mauticuser${MAUTIC_COUNT} database..."
+
+show_info ${ICON_INFO} "Create mautic${MAUTIC_COUNT} and user mauticuser${MAUTIC_COUNT} database..."
 
 #database named "mautic" will be created
 #username "mauticuser" will be created
 #with the password "MYSQL_MAUTICUSER_PASSWORD"
 echo "CREATE DATABASE mautic${MAUTIC_COUNT} DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;GRANT ALL ON mautic${MAUTIC_COUNT}.* TO 'mauticuser${MAUTIC_COUNT}'@'localhost' IDENTIFIED BY '${MYSQL_MAUTICUSER_PASSWORD}';FLUSH PRIVILEGES;" | mysql -u root -p${MYSQL_ROOT_PASSWORD}
 
-show_info ✅ 'Mautic database created.'
+show_info ${ICON_OK} 'Mautic database created.'
 
 
 file_content="$(cat << EOF
@@ -150,11 +149,11 @@ mautic_conf_file="/etc/nginx/conf.d/mautic${MAUTIC_COUNT}.conf"
 echo "${file_content}" > "${mautic_conf_file}"
 systemctl reload nginx
 
-show_info ✅ 'Nginx configuration file for Mautic (mautic.conf) created.'
+show_info ${ICON_OK} 'Nginx configuration file for Mautic (mautic.conf) created.'
 
 
 if [ "${SSL_CERTIFICATE,,}" == "test" ] || [ "${SSL_CERTIFICATE,,}" == "yes" ]; then
-  show_info 🛈 'We will try to obtain a SSL certificate...'
+  show_info ${ICON_INFO} 'We will try to obtain a SSL certificate...'
 
   DEBIAN_FRONTEND=noninteractive apt-get -yq install certbot python3-certbot-nginx
   mkdir -p "{$MAUTIC_FOLDER}.well-known/acme-challenge"
@@ -164,18 +163,18 @@ if [ "${SSL_CERTIFICATE,,}" == "test" ] || [ "${SSL_CERTIFICATE,,}" == "yes" ]; 
   #https://letsencrypt.org/docs/staging-environment/
 
   if [ "${SSL_CERTIFICATE,,}" == "yes" ]; then
-    show_info 🛈 'Pull production SSL certificate...'
+    show_info ${ICON_INFO} 'Pull production SSL certificate...'
     certbot --nginx --agree-tos --redirect --hsts --staple-ocsp --no-eff-email --email ${SENDER_EMAIL} -d ${MAUTIC_SUBDOMAIN}
   else
-    show_info 🛈 'Debug mode enabled: we will use the option --test-cert to obtain a SSL certificate...'
+    show_info ${ICON_INFO} 'Debug mode enabled: we will use the option --test-cert to obtain a SSL certificate...'
     certbot --nginx --agree-tos --redirect --hsts --staple-ocsp --no-eff-email --email ${SENDER_EMAIL} -d ${MAUTIC_SUBDOMAIN} --test-cert
   fi
   #The certificate can be removed with: certbot delete --cert-name ${MAUTIC_SUBDOMAIN}
 
   if [ $? -eq 0 ]; then
-    show_info ✅ 'SSL certificate was pulled successfully.'
+    show_info ${ICON_OK} 'SSL certificate was pulled successfully.'
   else
-    show_info ❌ 'There is an error and the SSL certificate was not obtained. Do you want to continue?'
+    show_info ${ICON_ERR} 'There is an error and the SSL certificate was not obtained. Do you want to continue?'
     answer_yes_else_stop
   fi
 
@@ -184,6 +183,6 @@ if [ "${SSL_CERTIFICATE,,}" == "test" ] || [ "${SSL_CERTIFICATE,,}" == "yes" ]; 
   sed -i 's/listen \[::\]:443 ssl/listen \[::\]:443 ssl http2/' "${mautic_conf_file}"
   systemctl reload nginx
 else
-  show_info ✅ 'No SSL certificate will be pulled.'
+  show_info ${ICON_OK} 'No SSL certificate will be pulled.'
 fi
 

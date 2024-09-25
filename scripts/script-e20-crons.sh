@@ -1,25 +1,21 @@
 #!/bin/bash
 
-###############################################################################
-#                                                                             #
-# Configure Cronjobs                                                          #
-#                                                                             #
-###############################################################################
+###############################################################################################
+#####                                    Configure Cronjobs                               #####
+###############################################################################################
 
-show_info 🛈 'Configure Cronjobs: mautic-crons.zip , crontab'
 
-show_info 🛈 'Downloading cron scripts...'
+show_info ${ICON_INFO} 'Installing cron scripts...'
 mkdir "${BACKUP_FILES_FOLDER}"
 
 wget -q "${URL_TO_FILES}mautic-crons.zip"
-unzip -q mautic-crons.zip -d "${CRON_FOLDER}"
-rm mautic-crons.zip
+mv "${INSTALL_FOLDER}crons"* "${CRON_FOLDER}"
 
 chown -R www-data:www-data "${CRON_FOLDER}"
 chown -R www-data:www-data "${BACKUP_FILES_FOLDER}"
 chmod -R 755 "${CRON_FOLDER}"
 chmod -R 755 "${BACKUP_FILES_FOLDER}"
-show_info ✅ 'Cron scripts installed.'
+show_info ${ICON_OK} 'Cron scripts installed.'
 
 
 if [ -z "${MAUTIC_COUNT}" ]; then
@@ -42,13 +38,13 @@ EOF
 echo "${file_content}" >> crontab_temp
 crontab -u www-data crontab_temp
 rm crontab_temp
-show_info ✅ 'Crons for web user installed.'
+show_info ${ICON_OK} 'Crons for web user installed.'
 
 
-sed -i "s|###CRON_FOLDER###|${CRON_FOLDER}|g" reset-mautic-permissions.sh
-mv reset-mautic-permissions.sh "${ROOT_FILES_FOLDER}reset-mautic${MAUTIC_COUNT}-permissions.sh"
+sed -i "s|###CRON_FOLDER###|${CRON_FOLDER}|g" "${INSTALL_FOLDER}other/reset-mautic-permissions.sh"
+mv "${INSTALL_FOLDER}other/reset-mautic-permissions.sh" "${ROOT_FILES_FOLDER}reset-mautic${MAUTIC_COUNT}-permissions.sh"
 chmod a+x "${ROOT_FILES_FOLDER}reset-mautic${MAUTIC_COUNT}-permissions.sh"
-show_info ✅ 'Cron script for root user installed.'
+show_info ${ICON_OK} 'Cron script for root user installed.'
 
 
 if [ -z "${MAUTIC_COUNT}" ]; then
@@ -63,12 +59,13 @@ EOF
 echo "${file_content}" >> crontab_temp
 crontab crontab_temp
 rm crontab_temp
-show_info ✅ 'Crons for root user installed.'
+show_info ${ICON_OK} 'Crons for root user installed.'
 
-show_info 🛈 'Clearing cache...'
+
+show_info ${ICON_INFO} 'Clearing cache...'
 php "${CRON_FOLDER}cron-clear-cache.php"
 
 chown -R www-data:www-data "${MAUTIC_FOLDER}"
 chmod -R 755 "${MAUTIC_FOLDER}"
 
-show_info ✅ 'Crons are installed.'
+show_info ${ICON_OK} 'Crons are installed.'

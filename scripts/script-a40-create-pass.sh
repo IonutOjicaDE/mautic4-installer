@@ -1,12 +1,8 @@
 #!/bin/bash
 
-###############################################################################
-#                                                                             #
-# Creating passwords and saving the file                                      #
-#                                                                             #
-###############################################################################
-
-show_info 🛈 'Creating passwords and saving the file...'
+###############################################################################################
+#####                        Creating passwords and saving the file                       #####
+###############################################################################################
 
 if [ -z "${MYSQL_ROOT_PASSWORD}" ]; then
       MYSQL_ROOT_PASSWORD=$(cat /dev/urandom | tr -dc '1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_' | head -c40)
@@ -28,7 +24,8 @@ MYSQL_MAUTICUSER_PASSWORD=$(cat /dev/urandom | tr -dc '1234567890abcdefghijklmno
       BACKUP_FILES_FOLDER="/var/mautic${MAUTIC_COUNT}-backups/"
         ROOT_FILES_FOLDER="/usr/local/bin/"
 
-show_info ✅ 'Passwords created. Saving the passwords in .sh, .php, .txt files...'
+show_info ${ICON_OK} 'Passwords created. Saving the passwords in .sh, .php, .txt files...'
+
 
 mkdir "${CRON_FOLDER}"
 
@@ -66,7 +63,9 @@ FROM_USER='${FROM_USER}'
 FROM_PASS='${FROM_PASS}'
 "
 printf "#!/bin/bash\n%s\n" "${content_file_sh}" > "${CRON_FOLDER}mautic.sh"
-show_info ✅ 'Passwords saved in .sh file.'
+
+show_info ${ICON_OK} 'Passwords saved in .sh file.'
+
 
 content_file_php=""
 while IFS= read -r current_line; do
@@ -77,7 +76,9 @@ while IFS= read -r current_line; do
     content_file_php+="${current_line}"$'\n'
   fi
 done <<< "${content_file_sh}"
-show_info ✅ 'Passwords saved in .php file.'
+
+show_info ${ICON_OK} 'Passwords saved in .php file.'
+
 
 printf "<?php\n%s\n?>" "${content_file_php}" > "${CRON_FOLDER}mautic.php"
 
@@ -91,4 +92,5 @@ while IFS= read -r current_line; do
 done <<< "${content_file_sh}"
 
 printf "${content_file_txt}" > "${CRON_FOLDER}mautic.txt"
-show_info ✅ 'Passwords saved in .txt file.'
+
+show_info ${ICON_OK} 'Passwords saved in .txt file.'

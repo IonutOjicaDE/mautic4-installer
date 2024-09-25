@@ -1,12 +1,10 @@
 #!/bin/bash
 
-###############################################################################
-#                                                                             #
-# Install Adminer                                                             #
-#                                                                             #
-###############################################################################
+###############################################################################################
+#####                                 Install Adminer                                     #####
+###############################################################################################
 
-show_info 🛈 'Download Adminer...'
+show_info ${ICON_INFO} 'Download Adminer...'
 
 #wget "${URL_TO_FILES}bazadate.zip"
 #unzip -q bazadate.zip -d "${MAUTIC_FOLDER}"
@@ -16,7 +14,7 @@ mkdir -p "${MAUTIC_FOLDER}database/plugins"
 
 cd "${MAUTIC_FOLDER}database/"
 wget -q "${ADMINER_DOWNLOAD_URL}"
-wget -q "${URL_TO_FILES}database.php"
+mv "${INSTALL_FOLDER}other/database.php" "${MAUTIC_FOLDER}database/"
 
 cd "${MAUTIC_FOLDER}bazadate/plugins/"
 wget -q https://raw.githubusercontent.com/adminerevo/adminerevo/master/plugins/plugin.php
@@ -31,4 +29,4 @@ chmod -R 755 "${MAUTIC_FOLDER}"
 
 cd "${PWD}"
 
-show_info ✅ 'Adminer is installed.'
+show_info ${ICON_OK} 'Adminer is installed.'

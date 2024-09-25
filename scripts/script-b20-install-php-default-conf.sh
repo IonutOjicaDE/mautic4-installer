@@ -1,17 +1,16 @@
 #!/bin/bash
 
-###############################################################################
-#                                                                             #
-# Install php, configure php, nginx                                           #
-#                                                                             #
-###############################################################################
+###############################################################################################
+#####                          Install php, configure php, nginx                          #####
+###############################################################################################
+
 
 if [ -z "${MAUTIC_COUNT}" ]; then
 
-  show_info 🛈 'Install MidnightCommander - orthodox File Explorer...'
+  show_info ${ICON_INFO} 'Install MidnightCommander - orthodox File Explorer...'
   DEBIAN_FRONTEND=noninteractive apt-get -yq install mc
 
-  show_info 🛈 'Install php...'
+  show_info ${ICON_INFO} 'Install php...'
   DEBIAN_FRONTEND=noninteractive apt-get -yq install php${PHP_VERSION} php${PHP_VERSION}-{fpm,mysql,cli,common,opcache,readline,mbstring,xml,gd,curl,imagick,imap,zip,bz2,intl,gmp,xmlrpc,bcmath}
 
   #Enable autostart of php on every reboot
@@ -25,10 +24,10 @@ if [ -z "${MAUTIC_COUNT}" ]; then
   #[2024-03-17 20:32:35] mautic.NOTICE: PHP Notice - SessionHandler::gc(): ps_files_cleanup_dir: opendir(/var/lib/php/sessions) failed: Permission denied (13) - in file /var/www/mautic/vendor/symfony/http-foundation/Session/Storage/Handler/StrictSessionHandler.php - at line 106 {"maxlifetime":14400} {"hostname":"m","pid":2243362}
   sudo chown www-data:www-data /var/lib/php/sessions
   sudo chmod 700 /var/lib/php/sessions
-  show_info ✅ "php${PHP_VERSION} is installed."
+  show_info ${ICON_OK} "php${PHP_VERSION} is installed."
 
 
-  show_info 🛈 'Adjust configuration of web server Nginx...'
+  show_info ${ICON_INFO} 'Adjust configuration of web server Nginx...'
   rm /etc/nginx/sites-enabled/default
 
 file_content="$(cat << EOF
@@ -93,8 +92,8 @@ EOF
 
   systemctl restart php${PHP_VERSION}-fpm.service
 
-  show_info ✅ 'Configuration of web server Nginx and php finished.'
+  show_info ${ICON_OK} 'Configuration of web server Nginx and php finished.'
 
 else
-  show_info 🛈 'No install or configuration of php or configuration of Nginx'
+  show_info ${ICON_INFO} 'No install or configuration of php or configuration of Nginx'
 fi

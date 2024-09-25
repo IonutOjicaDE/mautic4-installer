@@ -1,6 +1,8 @@
 #!/bin/bash
 
-show_info 🛈 'Sending passwords over email...'
+###############################################################################################
+#####                            Sending passwords over email                             #####
+###############################################################################################
 
 DEBIAN_FRONTEND=noninteractive apt-get -yq install sendemail
 
@@ -29,11 +31,9 @@ EOL
 )
 
 if check_positive "${SEND_PASS_TO_SENDER_EMAIL}"; then
-  show_info 🛈 "Paswords will be sent also to $SENDER_EMAIL ."
   sendemail -f "${FROM_EMAIL}" -s "${FROM_SERVER_PORT}" -xu "${FROM_USER}" -xp ''${FROM_PASS}'' -t "${SENDER_EMAIL}" -cc "${ADMIN_EMAIL}" -m "${email_content}" -a "$CRON_FOLDER}mautic.txt" -u "${email_subject}" -o message-charset=utf-8
 else
-  show_info 🛈 "Paswords will NOT be sent to $SENDER_EMAIL ."
   sendemail -f "${FROM_EMAIL}" -s "${FROM_SERVER_PORT}" -xu "${FROM_USER}" -xp ''${FROM_PASS}'' -t "${ADMIN_EMAIL}" -m "${email_content}" -a "${CRON_FOLDER}mautic.txt" -u "${email_subject}" -o message-charset=utf-8
 fi
 
-show_info ✅ "Email '${email_subject}' sent to $(check_positive "${SEND_PASS_TO_SENDER_EMAIL}" && echo "${SENDER_EMAIL} and to ")${ADMIN_EMAIL}."
+show_info ${ICON_OK} "Email '${email_subject}' sent to $(check_positive "${SEND_PASS_TO_SENDER_EMAIL}" && echo "${SENDER_EMAIL} and to ")${ADMIN_EMAIL}."

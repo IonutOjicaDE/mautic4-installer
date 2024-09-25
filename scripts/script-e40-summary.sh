@@ -1,14 +1,15 @@
 #!/bin/bash
 
-show_info 🛈 'Display summary...'
-
+###############################################################################################
+#####                                   Display summary                                   #####
+###############################################################################################
 
 echo
 echo
 echo
 echo '==========================================================================================================================='
 echo
-echo "Mautic installation is finished!
+echo "Mautic installation is finished!"
 if [ "${SSL_CERTIFICATE,,}" == "test" ]; then
   echo 'SSL certificate was installed only for test!'
   echo
