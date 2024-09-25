@@ -49,7 +49,7 @@ function show_info() {
   if [[ "$seconds" =~ ^[1-9]$ ]]; then
     execution_count=$((execution_count + 1))
     echo -e "\n${BCya}[$(date +%Y-%m-%d_%H:%M:%S)]  InstallScript  ${state}  ${comment}"
-    echo -e "[$(date +%Y-%m-%d_%H:%M:%S)]  InstallScript  ⌛  (${execution_count}) We continue after ${seconds} second$([[ $wait != 1 ]] && echo "s") ..."
+    echo -e "[$(date +%Y-%m-%d_%H:%M:%S)]  InstallScript  ⌛  (${execution_count}) We continue after ${seconds} second$([[ $seconds != 1 ]] && echo "s") ..."
     echo -e "${RCol}"
 
     line=$(printf '%.0s.' {1..100})
