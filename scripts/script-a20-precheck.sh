@@ -8,8 +8,8 @@ show_info ${ICON_INFO} 'Check if Apache2 is installed...'
 if dpkg -l | grep -qw apache2; then
   show_info ${ICON_IMP} 'Apache2 is installed. Uninstalling...'
   systemctl stop apache2
-  DEBIAN_FRONTEND=noninteractive apt-get -yq purge apache2 apache2-utils apache2-bin apache2.2-common
-  DEBIAN_FRONTEND=noninteractive apt-get -yq autoremove
+  DEBIAN_FRONTEND=noninteractive apt-get -yq purge apache2 apache2-utils apache2-bin apache2.2-common >/dev/null
+  DEBIAN_FRONTEND=noninteractive apt-get -yq autoremove >/dev/null
   show_info ${ICON_OK} 'Apache2 succesfully uninstalled.'
 else
   show_info ${ICON_OK} 'Apache2 is not installed.'
@@ -17,19 +17,19 @@ fi
 
 
 show_info ${ICON_INFO} 'Installing netcat-openbsd (to check the authentification to the email server trough nc)...'
-DEBIAN_FRONTEND=noninteractive apt-get -yq install netcat-openbsd
+DEBIAN_FRONTEND=noninteractive apt-get -yq install netcat-openbsd >/dev/null
 show_info ${ICON_INFO} 'Installing cron (needed for scheduled actions for Mautic / cronjobs)...'
-DEBIAN_FRONTEND=noninteractive apt-get -yq install cron
+DEBIAN_FRONTEND=noninteractive apt-get -yq install cron >/dev/null
 
 
 show_info ${ICON_INFO} 'Installing the needed packages to add new sources of packages in APT...'
-DEBIAN_FRONTEND=noninteractive apt-get -yq install apt-transport-https lsb-release ca-certificates
+DEBIAN_FRONTEND=noninteractive apt-get -yq install apt-transport-https lsb-release ca-certificates >/dev/null
 
 show_info ${ICON_INFO} 'Download and add the GPG key for the php repository from Sury...'
 wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg
 echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/php.list
 show_info ${ICON_INFO} 'Update of the packages to include php repository...'
-DEBIAN_FRONTEND=noninteractive apt-get -yq update
+DEBIAN_FRONTEND=noninteractive apt-get -yq update >/dev/null
 
 
 show_info ${ICON_INFO} 'Starting to check the config file ...'
@@ -164,7 +164,7 @@ while true; do
     if [ ! -z "${PHP_VERSION}" ]; then
       if apt-cache show "php${PHP_VERSION}" > /dev/null 2>&1; then
         show_info ${ICON_INFO} "Installing php${PHP_VERSION}..."
-        DEBIAN_FRONTEND=noninteractive apt-get -yq install php${PHP_VERSION}
+        DEBIAN_FRONTEND=noninteractive apt-get -yq install php${PHP_VERSION} >/dev/null
       else
         show_info ${ICON_ERR} "PHP version ${PHP_VERSION} is not available. Do you want to specify another version and then try again?"
         answer_yes_else_stop && continue

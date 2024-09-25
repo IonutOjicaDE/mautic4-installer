@@ -102,15 +102,15 @@ INSTALL_FOLDER="${PWD}mautic4-installer-main/"
 FILE_CONF="${INSTALL_FOLDER}scripts/mautic-install.conf"
 
 show_info ${ICON_INFO} 'Update of the packages...'
-DEBIAN_FRONTEND=noninteractive apt-get -yq update
+DEBIAN_FRONTEND=noninteractive apt-get -yq update >/dev/null
 show_info ${ICON_INFO} 'Upgrade of the packages...'
-DEBIAN_FRONTEND=noninteractive apt-get -yq upgrade
+DEBIAN_FRONTEND=noninteractive apt-get -yq upgrade >/dev/null
 show_info ${ICON_OK} 'Update and upgrade finished.'
 #DEBIAN_FRONTEND=noninteractive apt-get -yq autoremove
 #DEBIAN_FRONTEND=noninteractive apt-get -yq clean
 
 show_info ${ICON_INFO} 'Installing unzip...'
-DEBIAN_FRONTEND=noninteractive apt-get -yq install unzip
+DEBIAN_FRONTEND=noninteractive apt-get -yq install unzip >/dev/null
 show_info ${ICON_OK} 'Unzip installed.'
 
 

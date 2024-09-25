@@ -18,7 +18,7 @@ if [ -z "${MAUTIC_COUNT}" ]; then
   timedatectl set-timezone "Etc/UTC"
 
   show_info ${ICON_INFO} 'Installing nginx...'
-  DEBIAN_FRONTEND=noninteractive apt-get -yq install nginx htop
+  DEBIAN_FRONTEND=noninteractive apt-get -yq install nginx htop >/dev/null
   #Enable autostart of nginx on every reboot
   systemctl enable nginx
   #Start nginx now
@@ -29,7 +29,7 @@ if [ -z "${MAUTIC_COUNT}" ]; then
 
 
   show_info ${ICON_INFO} 'Installing MariaDB...'
-  DEBIAN_FRONTEND=noninteractive apt-get -yq install mariadb-server mariadb-client
+  DEBIAN_FRONTEND=noninteractive apt-get -yq install mariadb-server mariadb-client >/dev/null
   #Enable autostart of MariaDB on every reboot
   systemctl enable mariadb
 
