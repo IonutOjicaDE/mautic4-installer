@@ -8,12 +8,11 @@ show_info ${ICON_INFO} 'Download Mautic...'
 
 mkdir -p "${MAUTIC_FOLDER}"
 
-DEBIAN_FRONTEND=noninteractive apt-get -yq install unzip zip
-wget -q "${MAUTIC_DOWNLOAD_URL}"
+DEBIAN_FRONTEND=noninteractive apt-get -yq install unzip zip >/dev/null
+wget -q "${MAUTIC_DOWNLOAD_URL}" -P "${INSTALL_FOLDER}"
 
 show_info ${ICON_INFO} 'Unzip Mautic...'
-unzip -q "${MAUTIC_VERSION}.zip" -d "${MAUTIC_FOLDER}"
-rm "${MAUTIC_VERSION}.zip"
+unzip -q "${INSTALL_FOLDER}${MAUTIC_VERSION}.zip" -d "${MAUTIC_FOLDER}"
 
 chown -R www-data:www-data "${MAUTIC_FOLDER}"
 chmod -R 755 "${MAUTIC_FOLDER}"
