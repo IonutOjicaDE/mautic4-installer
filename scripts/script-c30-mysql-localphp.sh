@@ -81,7 +81,7 @@ show_info ${ICON_OK} 'local.php installed.'
 show_info ${ICON_INFO} 'Install romanian laguage package'
 #wget 'https://updates.mautic.org/index.php?option=com_mauticdownload&task=downloadLanguagePackage&langCode=ro_RO' -O ro_RO.zip
 wget -q 'https://github.com/IonutOjicaDE/mautic4-ro-translation/archive/refs/heads/main.zip' -O "${INSTALL_FOLDER}mautic4-ro-translation.zip"
-unzip -q "${INSTALL_FOLDER}mautic4-ro-translation.zip"
+unzip -q "${INSTALL_FOLDER}mautic4-ro-translation.zip" -d "${INSTALL_FOLDER}"
 mv "${INSTALL_FOLDER}mautic4-ro-translation-main/ro_RO" "${MAUTIC_FOLDER}translations/"
 show_info ${ICON_OK} 'Romanian laguage package installed.'
 

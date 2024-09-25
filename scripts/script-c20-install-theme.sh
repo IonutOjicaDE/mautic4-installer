@@ -19,7 +19,7 @@ show_info ${ICON_OK} 'Dashboard installed.'
 
 show_info ${ICON_INFO} 'Installing theme 460c-Simplu...'
 wget -q 'https://github.com/IonutOjicaDE/mautic-theme-simple-460/archive/refs/heads/main.zip' -O "${INSTALL_FOLDER}460c-Simplu.zip"
-unzip -q "${INSTALL_FOLDER}460c-Simplu.zip"
+unzip -q "${INSTALL_FOLDER}460c-Simplu.zip" -d "${INSTALL_FOLDER}"
 mv "${INSTALL_FOLDER}mautic-theme-simple-460-main/src" "${MAUTIC_FOLDER}themes/460c-Simplu"
 show_info ${ICON_OK} 'Theme 460c-Simplu installed.'
 
