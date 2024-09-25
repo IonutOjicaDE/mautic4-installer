@@ -237,5 +237,5 @@ sub write_file {
 sub show_info {
   my ($state, $comment) = @_;
   my $timestamp = strftime("%Y-%m-%d_%H:%M:%S", localtime);
-  print "[$timestamp]  InstallScript  $state  $comment\n";
+  print "\n[$timestamp]  InstallScript  $state  $comment";
 }
