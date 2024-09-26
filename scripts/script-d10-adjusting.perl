@@ -29,29 +29,29 @@ my $MAUTIC_SUBDOMAIN = $ARGV[1];
 show_info('📝', 'Active animation in multi-page forms (1)...');
 $OLD_CONTENT=q{var thePage=theForm.querySelector('[data-mautic-form-page="'+showPageNumber+'"]');if(thePage){thePage.style.display='block'}};
 $NEW_CONTENT=q(var thePage=theForm.querySelector('[data-mautic-form-page="'+showPageNumber+'"]');if(thePage){thePage.style.display='block';thePage.style.animation='fade_in_show 0.5s';});
-replace_text($OLD_CONTENT, $NEW_CONTENT, $MAUTIC_FOLDER . 'app/assets/js/mautic-form.js');
-replace_text($OLD_CONTENT, $NEW_CONTENT, $MAUTIC_FOLDER . 'media/js/mautic-form.js');
+replace_text($OLD_CONTENT, $NEW_CONTENT, "${MAUTIC_FOLDER}app/assets/js/mautic-form.js");
+#replace_text($OLD_CONTENT, $NEW_CONTENT, "${MAUTIC_FOLDER}media/js/mautic-form.js");
 
 
 show_info('📝', 'Active animation in multi-page forms (2)...');
 $OLD_CONTENT=q{var showPageBreak=theForm.querySelector('[data-mautic-form-pagebreak="'+showPageNumber+'"]');if(showPageBreak){showPageBreak.style.display='block';}};
 $NEW_CONTENT=q(var showPageBreak=theForm.querySelector('[data-mautic-form-pagebreak="'+showPageNumber+'"]');if(showPageBreak){showPageBreak.style.display='block';showPageBreak.style.animation='fade_in_show 0.5s';});
-replace_text($OLD_CONTENT, $NEW_CONTENT, $MAUTIC_FOLDER . 'app/assets/js/mautic-form.js');
-replace_text($OLD_CONTENT, $NEW_CONTENT, $MAUTIC_FOLDER . 'media/js/mautic-form.js');
+replace_text($OLD_CONTENT, $NEW_CONTENT, "${MAUTIC_FOLDER}app/assets/js/mautic-form.js");
+#replace_text($OLD_CONTENT, $NEW_CONTENT, "${MAUTIC_FOLDER}media/js/mautic-form.js");
 
 
 show_info('📝', 'Show segment informations also on smartphone...');
 $OLD_CONTENT=q{.visible-xs,.visible-sm,.visible-md,.visible-lg{display:none !important}};
 $NEW_CONTENT=q(/*.visible-xs,.visible-sm,.visible-md,.visible-lg{display:none !important}*/);
-replace_text($OLD_CONTENT, $NEW_CONTENT, $MAUTIC_FOLDER . 'app/assets/css/libraries.css');
-replace_text($OLD_CONTENT, $NEW_CONTENT, $MAUTIC_FOLDER . 'media/css/libraries.css');
+replace_text($OLD_CONTENT, $NEW_CONTENT, "${MAUTIC_FOLDER}app/assets/css/libraries.css");
+#replace_text($OLD_CONTENT, $NEW_CONTENT, "${MAUTIC_FOLDER}media/css/libraries.css");
 
 
 show_info('📝', 'Split of long lines on spaces also on smartphone...');
 $OLD_CONTENT=q{.table-responsive>.table>thead>tr>th,.table-responsive>.table>tbody>tr>th,.table-responsive>.table>tfoot>tr>th,.table-responsive>.table>thead>tr>td,.table-responsive>.table>tbody>tr>td,.table-responsive>.table>tfoot>tr>td{white-space:nowrap}};
 $NEW_CONTENT=q(/*.table-responsive>.table>thead>tr>th,.table-responsive>.table>tbody>tr>th,.table-responsive>.table>tfoot>tr>th,.table-responsive>.table>thead>tr>td,.table-responsive>.table>tbody>tr>td,.table-responsive>.table>tfoot>tr>td{white-space:nowrap}*/);
-replace_text($OLD_CONTENT, $NEW_CONTENT, $MAUTIC_FOLDER . 'app/assets/css/libraries.css');
-replace_text($OLD_CONTENT, $NEW_CONTENT, $MAUTIC_FOLDER . 'media/css/libraries.css');
+replace_text($OLD_CONTENT, $NEW_CONTENT, "${MAUTIC_FOLDER}app/assets/css/libraries.css");
+#replace_text($OLD_CONTENT, $NEW_CONTENT, "${MAUTIC_FOLDER}media/css/libraries.css");
 
 
 show_info('📝', 'Send of the campaign emails using owner timezone...');
@@ -129,17 +129,17 @@ $NEW_CONTENT=q(private function getExecutionDateTimeFromHour(Lead $contact, \Dat
 
         return $groupExecutionDate;
     });
-replace_text($OLD_CONTENT, $NEW_CONTENT, $MAUTIC_FOLDER . 'app/bundles/CampaignBundle/Executioner/Scheduler/Mode/Interval.php');
+replace_text($OLD_CONTENT, $NEW_CONTENT, "${MAUTIC_FOLDER}app/bundles/CampaignBundle/Executioner/Scheduler/Mode/Interval.php");
 
 show_info('📝', 'Remove button *Update now* from Notification...');
 $NEW_CONTENT="\n.mautic-update .btn-danger{display:none !important;}";
-append_text($NEW_CONTENT, $MAUTIC_FOLDER . 'media/css/app.css');
-append_text($NEW_CONTENT, $MAUTIC_FOLDER . 'app/assets/css/app.css');
+append_text($NEW_CONTENT, "${MAUTIC_FOLDER}app/assets/css/app.css");
+#append_text($NEW_CONTENT, "${MAUTIC_FOLDER}media/css/app.css");
 
 show_info('📝', 'Correct Mautic auto log out each 10 minutes...');
-$NEW_CONTENT="\njQuery(function () {setInterval(function(){jQuery.ajax({method: 'GET',url: 'https://" . $MAUTIC_SUBDOMAIN . "/s/credentials'});}, 360000);/*every 9 minutes*/});";
-append_text($NEW_CONTENT, $MAUTIC_FOLDER . 'media/js/app.js');
-append_text($NEW_CONTENT, $MAUTIC_FOLDER . 'app/assets/js/app.js');
+$NEW_CONTENT="\njQuery(function () {setInterval(function(){jQuery.ajax({method: 'GET',url: 'https://${MAUTIC_SUBDOMAIN}/s/credentials'});}, 360000);/*every 9 minutes*/});";
+append_text($NEW_CONTENT, "${MAUTIC_FOLDER}app/assets/js/app.js");
+#append_text($NEW_CONTENT, "${MAUTIC_FOLDER}media/js/app.js");
 
 show_info('📝', 'Allow attribute mautic:disable-tracking in Dynamic Content...');
 #https://github.com/mautic/mautic/pull/12378
@@ -155,27 +155,27 @@ $NEW_CONTENT=q(htmlAllowedTags: ['a', 'abbr', 'address', 'area', 'article', 'asi
     htmlAllowComments: true,
     htmlUntouched: false,
     fullPage: false // Will also turn iframe on.);
-replace_text($OLD_CONTENT, $NEW_CONTENT, '/var/www/mautic/app/bundles/CoreBundle/Assets/js/libraries/froala/froala_editor.js');
+replace_text($OLD_CONTENT, $NEW_CONTENT, "${MAUTIC_FOLDER}app/bundles/CoreBundle/Assets/js/libraries/froala/froala_editor.js");
 
 show_info('📝', 'Fix the dynamic content events are not displayed on the lead timeline...');
 #https://github.com/mautic/mautic/pull/11726/files
 $OLD_CONTENT=q{$eventTypeNameSent = $this->translator->trans('mautic.dynamic.content.sent');};
 $NEW_CONTENT=q($eventTypeNameSent = $this->translator->trans('mautic.dynamic.content.triggered'););
-replace_text($OLD_CONTENT, $NEW_CONTENT, $MAUTIC_FOLDER . 'app/bundles/DynamicContentBundle/EventListener/LeadSubscriber.php');
+replace_text($OLD_CONTENT, $NEW_CONTENT, "${MAUTIC_FOLDER}app/bundles/DynamicContentBundle/EventListener/LeadSubscriber.php");
 
 $OLD_CONTENT=q{'icon'            => 'fa-envelope',};
 $NEW_CONTENT=q('icon'            => 'fa-puzzle-piece',);
-replace_text($OLD_CONTENT, $NEW_CONTENT, $MAUTIC_FOLDER . 'app/bundles/DynamicContentBundle/EventListener/LeadSubscriber.php');
+replace_text($OLD_CONTENT, $NEW_CONTENT, "${MAUTIC_FOLDER}app/bundles/DynamicContentBundle/EventListener/LeadSubscriber.php");
 
 $OLD_CONTENT=q{mautic.dynamic.content.sent="Dynamic Content Sent"};
 $NEW_CONTENT=q(mautic.dynamic.content.triggered="Dynamic Content Triggered");
-replace_text($OLD_CONTENT, $NEW_CONTENT, $MAUTIC_FOLDER . 'app/bundles/DynamicContentBundle/Translations/en_US/messages.ini');
+replace_text($OLD_CONTENT, $NEW_CONTENT, "${MAUTIC_FOLDER}app/bundles/DynamicContentBundle/Translations/en_US/messages.ini");
 
 $OLD_CONTENT=q{$data = $event['extra']['log']['metadata'];};
 $NEW_CONTENT=q($data = $event['extra']['stat']['sentDetails'];);
-replace_text($OLD_CONTENT, $NEW_CONTENT, $MAUTIC_FOLDER . 'app/bundles/DynamicContentBundle/Views/SubscribedEvents/Timeline/index.html.php');
+replace_text($OLD_CONTENT, $NEW_CONTENT, "${MAUTIC_FOLDER}app/bundles/DynamicContentBundle/Views/SubscribedEvents/Timeline/index.html.php");
 
-show_info('✅', 'Success => now clear the cache to see the result.');
+show_info('✅', 'Success => now clear the cache and regenerate assets to see the result.');
 exit;
 
 sub append_text {
