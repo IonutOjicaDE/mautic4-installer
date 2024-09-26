@@ -5,7 +5,7 @@ require_once __DIR__ . '/mautic.php';
 ob_get_clean();
 
 $clearCacheFile     = "${CRON_FOLDER}clear-cache";
-$cacheClearedFile   = $clearCacheFile . '-done';
+$cacheClearedFile   = "${clearCacheFile}-done";
 $clearCacheCronFile = "${CRON_FOLDER}cron-clear-cache.php";
 $DO_RUN_File        = "${CRON_FOLDER}DO--RUN";
 $DO_NOT_RUN_File    = "${CRON_FOLDER}DO-NOT-RUN";
