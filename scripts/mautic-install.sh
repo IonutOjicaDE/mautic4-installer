@@ -160,7 +160,7 @@ install_script_files=(
   'script-c30-mysql-localphp.sh'
   'script-c32-mysql-owner.sh'
   'script-c40-plugins.sh'
-  'script-d10-adjusting.perl'
+  'script-d10-adjusting.sh'
   'script-e10-ufw-fail2ban.sh'
   'script-e20-crons.sh'
   'script-e30-send-pass-to-email.sh'
@@ -169,12 +169,7 @@ install_script_files=(
 
 for install_script_file in "${install_script_files[@]}"; do
   show_info ${ICON_INFO} "Executing ${install_script_file}..." 1
-  if [[ "${install_script_file}" == *.sh ]]; then
-    source "${INSTALL_FOLDER}scripts/${install_script_file}"
-  elif [[ "${install_script_file}" == *.perl ]]; then
-    perl -s "${INSTALL_FOLDER}scripts/${install_script_file}" "${MAUTIC_FOLDER}" "${MAUTIC_SUBDOMAIN}"
-    cp "${INSTALL_FOLDER}scripts/${install_script_file}" "${CRON_FOLDER}"
-  fi
+  source "${INSTALL_FOLDER}scripts/${install_script_file}"
 done
 
 show_info ${ICON_INFO} 'Removing installation folder...'
