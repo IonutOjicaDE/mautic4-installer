@@ -135,7 +135,7 @@ The main challange was to have the jobs execute each minute and to have them run
 
 *You want the emails to go out ideally in the next seccond after the subscriber pressed the button. Using independent Forms is almost possible.*
 
-*But using triggers in campaigns or segments, this is not possible. With this script, the emails are sent at least in the next minute. This is acceptable - the subscriber should still be on the "thanky you" page.*
+*But using triggers in campaigns or segments, this is not possible. With this script, the emails are sent at least in the next minute. This is acceptable - the subscriber should still be on the "Thank you" page.*
 
 This is done by the file `w-cron-all.sh` which executes `cron-all.php`.
 
@@ -212,7 +212,8 @@ For the first Mautic instance, these are the folders used:
 
 | FOLDER | DESCRIPTION |
 |--|--|
-| `/var/www/mautic/` | here is Mautic installed. Also the utility `commands.php` can be found here. |
+| `/var/www/mautic/` | here is Mautic installed. |
+| `/var/www/mautic/commands/` | here is `commands.php` installed |
 | `/var/www/mautic/database/` | here is `Adminer` installed |
 | `/var/mautic-crons/` | here are the cronjob files that are executed for Mautic |
 | `/var/mautic-backups/` | here you can find the backups of the database and Mautic folder |
@@ -224,6 +225,7 @@ Here is where the second Mautic instance will be installed. For other Mautic ins
 | FOLDER | DESCRIPTION |
 |--|--|
 | `/var/www/mautic2/` | here is Mautic2 installed |
+| `/var/www/mautic2/commands/` | here is `commands.php` installed |
 | `/var/www/mautic2/database/` | here is `Adminer` installed - this has no purpose, as one `Adminer` would be enough on the server. |
 | `/var/mautic2-crons/` | here are the cronjob files that are executed for Mautic2 |
 | `/var/mautic2-backups/` | here you can find the backups of the database and Mautic2 folder |
