@@ -158,7 +158,7 @@ $NEW_CONTENT=q(htmlAllowedTags: ['a', 'abbr', 'address', 'area', 'article', 'asi
 replace_text($OLD_CONTENT, $NEW_CONTENT, "${MAUTIC_FOLDER}app/bundles/CoreBundle/Assets/js/libraries/froala/froala_editor.js");
 
 show_info('📝', 'Fix the dynamic content events are not displayed on the lead timeline...');
-#https://github.com/mautic/mautic/pull/11726/files
+#https://github.com/mautic/mautic/pull/11726
 $OLD_CONTENT=q{$eventTypeNameSent = $this->translator->trans('mautic.dynamic.content.sent');};
 $NEW_CONTENT=q($eventTypeNameSent = $this->translator->trans('mautic.dynamic.content.triggered'););
 replace_text($OLD_CONTENT, $NEW_CONTENT, "${MAUTIC_FOLDER}app/bundles/DynamicContentBundle/EventListener/LeadSubscriber.php");
@@ -174,6 +174,124 @@ replace_text($OLD_CONTENT, $NEW_CONTENT, "${MAUTIC_FOLDER}app/bundles/DynamicCon
 $OLD_CONTENT=q{$data = $event['extra']['log']['metadata'];};
 $NEW_CONTENT=q($data = $event['extra']['stat']['sentDetails'];);
 replace_text($OLD_CONTENT, $NEW_CONTENT, "${MAUTIC_FOLDER}app/bundles/DynamicContentBundle/Views/SubscribedEvents/Timeline/index.html.php");
+
+show_info('📝', 'Fix: Letters disappear when searching for emails to send in Campaign Builder...');
+#https://github.com/mautic/mautic/pull/14032
+$OLD_CONTENT=q{$.each(items, function (i, element) {
+                        var group, text, value;
+                        nbItems++;
+                        if (element.group) {
+                            group = select.find("optgroup[label='" + element.text + "']");
+                            if (!group.length) {
+                                group = $("<optgroup />");
+                            }
+                            group.attr('label', element.text).appendTo(select);
+                            return $.each(element.items, function (i, element) {
+                                var text, value;
+                                if (typeof element === "string") {
+                                    value = i;
+                                    text = element;
+                                } else {
+                                    value = element.value;
+                                    text = element.text;
+                                }
+                                if ($.inArray(value + "-" + text, selected_values) === -1) {
+                                    return $("<option />").attr('value', value).html(text).appendTo(group);
+                                }
+                            });
+                        } else {
+                            if (typeof element === "string") {
+                                value = i;
+                                text = element;
+                            } else {
+                                value = element.value;
+                                text = element.text;
+                            }
+                            if ($.inArray(value + "-" + text, selected_values) === -1) {
+                                return $("<option />").attr('value', value).html(text).appendTo(select);
+                            }
+                        }
+                    });
+                    if (nbItems) {
+                        // Re-append new back to the top
+                        if (hasNew) {
+                            hasNew.prependTo(select);
+                        }
+                        select.trigger("chosen:updated");
+
+                        setTimeout( function() {
+                            // Hack to force chosen to hide already selected values from the list
+                            var e = $.Event("keyup.chosen");
+                            e.which = 93; // Windows/Command
+                            field.trigger(e);
+                        }, 5);
+                    } else {
+                        select.data().chosen.no_results_clear();
+                        select.data().chosen.no_results(field.val());
+                    }
+                    if (settings.success != null) {
+                        settings.success(data);
+                    }
+                    var returnVar = field.val(untrimmed_val);};
+$NEW_CONTENT=q(var searchValue = field.val();
+                    $.each(items, function (i, element) {
+                        var group, text, value;
+                        nbItems++;
+                        if (element.group) {
+                            group = select.find("optgroup[label='" + element.text + "']");
+                            if (!group.length) {
+                                group = $("<optgroup />");
+                            }
+                            group.attr('label', element.text).appendTo(select);
+                            return $.each(element.items, function (i, element) {
+                                var text, value;
+                                if (typeof element === "string") {
+                                    value = i;
+                                    text = element;
+                                } else {
+                                    value = element.value;
+                                    text = element.text;
+                                }
+                                if ($.inArray(value + "-" + text, selected_values) === -1) {
+                                    return $("<option />").attr('value', value).html(text).appendTo(group);
+                                }
+                            });
+                        } else {
+                            if (typeof element === "string") {
+                                value = i;
+                                text = element;
+                            } else {
+                                value = element.value;
+                                text = element.text;
+                            }
+                            if ($.inArray(value + "-" + text, selected_values) === -1) {
+                                return $("<option />").attr('value', value).html(text).appendTo(select);
+                            }
+                        }
+                    });
+                    if (nbItems) {
+                        // Re-append new back to the top
+                        if (hasNew) {
+                            hasNew.prependTo(select);
+                        }
+                        select.trigger("chosen:updated");
+
+                        setTimeout( function() {
+                            // Hack to force chosen to hide already selected values from the list
+                            var e = $.Event("keyup.chosen");
+                            e.which = 93; // Windows/Command
+                            field.trigger(e);
+                        }, 5);
+                    } else {
+                        select.data().chosen.no_results_clear();
+                        select.data().chosen.no_results(field.val());
+                    }
+                    if (settings.success != null) {
+                        settings.success(data);
+                    }
+                    var returnVar = field.val(searchValue););
+replace_text($OLD_CONTENT, $NEW_CONTENT, "${MAUTIC_FOLDER}app/bundles/CoreBundle/Assets/js/libraries/3b.chosen.ajax.js");
+
 
 show_info('✅', 'Success => now clear the cache and regenerate assets to see the result.');
 exit;
