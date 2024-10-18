@@ -5,7 +5,7 @@
 ###############################################################################################
 
 
-show_info ${ICON_INFO} 'Installing cron scripts...'
+show_info ${ICON_INFO} 'Installing cron scripts for web user...'
 
 mv "${INSTALL_FOLDER}crons/"* "${CRON_FOLDER}"
 
@@ -13,7 +13,7 @@ chown -R www-data:www-data "${CRON_FOLDER}"
 chown -R www-data:www-data "${BACKUP_FILES_FOLDER}"
 chmod -R 755 "${CRON_FOLDER}"
 chmod -R 755 "${BACKUP_FILES_FOLDER}"
-show_info ${ICON_OK} 'Cron scripts installed.'
+show_info ${ICON_OK} 'Cron scripts for web user installed and permissions set.'
 
 
 if [ -z "${MAUTIC_COUNT}" ]; then
@@ -36,7 +36,7 @@ EOF
 echo "${file_content}" >> crontab_temp
 crontab -u www-data crontab_temp
 rm crontab_temp
-show_info ${ICON_OK} 'Crons for web user installed.'
+show_info ${ICON_OK} 'Crons for web user scheduled.'
 
 
 sed -i "s|###CRON_FOLDER###|${CRON_FOLDER}|g" "${INSTALL_FOLDER}other/reset-mautic-permissions.sh"
@@ -57,7 +57,7 @@ EOF
 echo "${file_content}" >> crontab_temp
 crontab crontab_temp
 rm crontab_temp
-show_info ${ICON_OK} 'Crons for root user installed.'
+show_info ${ICON_OK} 'Cron for root user scheduled.'
 
 
 show_info ${ICON_INFO} 'Clearing cache...'
