@@ -31,9 +31,9 @@ EOL
 )
 
 if check_positive "${SEND_PASS_TO_SENDER_EMAIL}"; then
-  sendemail -f "${FROM_EMAIL}" -s "${FROM_SERVER_PORT}" -xu "${FROM_USER}" -xp ''${FROM_PASS}'' -t "${SENDER_EMAIL}" -cc "${ADMIN_EMAIL}" -m "${email_content}" -a "$CRON_FOLDER}mautic.txt" -u "${email_subject}" -o message-charset=utf-8 >/dev/null
+  sendemail -f "${FROM_EMAIL}" -s "${FROM_SERVER_PORT}" -xu "${FROM_USER}" -xp "${FROM_PASS}" -t "${SENDER_EMAIL}" -cc "${ADMIN_EMAIL}" -m "${email_content}" -a "${CRON_FOLDER}mautic.txt" -u "${email_subject}" -o message-charset=utf-8 >/dev/null
 else
-  sendemail -f "${FROM_EMAIL}" -s "${FROM_SERVER_PORT}" -xu "${FROM_USER}" -xp ''${FROM_PASS}'' -t "${ADMIN_EMAIL}" -m "${email_content}" -a "${CRON_FOLDER}mautic.txt" -u "${email_subject}" -o message-charset=utf-8 >/dev/null
+  sendemail -f "${FROM_EMAIL}" -s "${FROM_SERVER_PORT}" -xu "${FROM_USER}" -xp "${FROM_PASS}" -t "${ADMIN_EMAIL}" -m "${email_content}" -a "${CRON_FOLDER}mautic.txt" -u "${email_subject}" -o message-charset=utf-8 >/dev/null
 fi
 
 if [ $? -eq 0 ]; then
