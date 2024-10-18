@@ -20,7 +20,7 @@ $run_console        = "/usr/bin/php ${MAUTIC_FOLDER}bin/console mautic:";
 
 $commands = [
 // Process webhooks from the queue - UNCOMENT if webhooks are used
-"webhook:process" => ["softTimeLimit" => 30, "hardTimeLimit" => 110, "folder" => "", "eachMinutes" => 1],
+// "webhook:process" => ["softTimeLimit" => 30, "hardTimeLimit" => 110, "folder" => "", "eachMinutes" => 1],
 
 // Check for Replies to sent emails, default --message-limit=
 "email:fetch --message-limit=100" => ["softTimeLimit" => 30, "hardTimeLimit" => 110, "folder" => "", "eachMinutes" => 10],
