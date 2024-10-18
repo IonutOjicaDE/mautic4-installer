@@ -7,11 +7,11 @@ if [ -s $log_file ]; then
   source ${current_dir}/mautic.sh
 
   if [ -e "${current_dir}/DO-NOT-RUN" ]; then
-    subject="ACTION Mautic $MAUTIC_SUBDOMAIN: The commands took too long and their execution is stopped"
+    subject="ACTION Mautic ${MAUTIC_SUBDOMAIN}: The commands took too long and their execution is stopped"
     content=$(cat <<EOL
 Hello ${SENDER_FIRSTNAME},
 
-EXECUTION OF COMMANDS FROM MAUTIC $MAUTIC_SUBDOMAIN IS STOPPED
+EXECUTION OF COMMANDS FROM MAUTIC ${MAUTIC_SUBDOMAIN} IS STOPPED
 
 because we noticed that repeatedly certain commands took longer than specified as hardLimit.
 Attached is the recorded log where you can check which command exceeded the execution time.
@@ -30,11 +30,11 @@ PS: Date and time of verification: $(date +'%Y-%m-%d %H:%M:%S')
 EOL
 )
   else
-    subject="ACTIUNE Mautic $MAUTIC_SUBDOMAIN: The commands took too long and their execution will be stopped"
+    subject="ACTIUNE Mautic ${MAUTIC_SUBDOMAIN}: The commands took too long and their execution will be stopped"
     content=$(cat <<EOL
 Hello ${SENDER_FIRSTNAME},
 
-we noticed that on the domain $MAUTIC_SUBDOMAIN certain commands took longer than specified as hardLimit.
+we noticed that on the domain ${MAUTIC_SUBDOMAIN} certain commands took longer than specified as hardLimit.
 Attached is the recorded log where you can check which command exceeded the execution time.
 
 If it happens again, then I will stop the execution of the commands, because this is a sign that there is a bug in Mautic.
@@ -46,6 +46,6 @@ PS: Date and time of verification: $(date +'%Y-%m-%d %H:%M:%S')
 EOL
 )
   fi
-  sendemail -f $FROM_EMAIL -s $FROM_SERVER_PORT -xu $FROM_USER -xp ''$FROM_PASS'' -t $ADMIN_EMAIL -m "$content" -a $log_file -u "$subject" -o message-charset=utf-8 > /dev/null 2>&1
-  rm $log_file
+  sendemail -f "${FROM_EMAIL}" -s "${FROM_SERVER_PORT}" -xu "${FROM_USER}" -xp "${FROM_PASS}" -t "${ADMIN_EMAIL}" -m "${content}" -a "${log_file}" -u "${subject}" -o message-charset=utf-8 > /dev/null 2>&1
+  rm "${log_file}"
 fi
